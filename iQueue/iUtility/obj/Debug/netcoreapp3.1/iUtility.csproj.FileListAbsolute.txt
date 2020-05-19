@@ -1,0 +1,6 @@
+C:\Projects-Github\iQueue\iQueue\iUtility\bin\Debug\netcoreapp3.1\iUtility.exe
+C:\Projects-Github\iQueue\iQueue\iUtility\obj\Debug\netcoreapp3.1\iUtility.csprojAssemblyReference.cache
+C:\Projects-Github\iQueue\iQueue\iUtility\obj\Debug\netcoreapp3.1\iUtility.AssemblyInfoInputs.cache
+C:\Projects-Github\iQueue\iQueue\iUtility\obj\Debug\netcoreapp3.1\iUtility.AssemblyInfo.cs
+C:\Projects-Github\iQueue\iQueue\iUtility\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Projects-Github\iQueue\iQueue\iUtility\obj\Debug\netcoreapp3.1\iUtility.csproj.CopyComplete

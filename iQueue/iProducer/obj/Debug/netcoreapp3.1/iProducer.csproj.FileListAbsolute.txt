@@ -1,0 +1,8 @@
+C:\Projects-Github\iQueue\iQueue\iProducer\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Projects-Github\iQueue\iQueue\iProducer\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Projects-Github\iQueue\iQueue\iProducer\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\iProducer.AssemblyInfoInputs.cache
+C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\iProducer.AssemblyInfo.cs
+C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\iProducer.RazorTargetAssemblyInfo.cache
+C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\staticwebassets\iProducer.StaticWebAssets.Manifest.cache
+C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\staticwebassets\iProducer.StaticWebAssets.xml

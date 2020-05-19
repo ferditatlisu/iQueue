@@ -1,0 +1,9 @@
+C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Projects-Github\iQueue\iQueue\iConsumer\obj\Debug\netcoreapp3.1\iConsumer.csprojAssemblyReference.cache
+C:\Projects-Github\iQueue\iQueue\iConsumer\obj\Debug\netcoreapp3.1\iConsumer.AssemblyInfoInputs.cache
+C:\Projects-Github\iQueue\iQueue\iConsumer\obj\Debug\netcoreapp3.1\iConsumer.AssemblyInfo.cs
+C:\Projects-Github\iQueue\iQueue\iConsumer\obj\Debug\netcoreapp3.1\iConsumer.RazorTargetAssemblyInfo.cache
+C:\Projects-Github\iQueue\iQueue\iConsumer\obj\Debug\netcoreapp3.1\staticwebassets\iConsumer.StaticWebAssets.Manifest.cache
+C:\Projects-Github\iQueue\iQueue\iConsumer\obj\Debug\netcoreapp3.1\staticwebassets\iConsumer.StaticWebAssets.xml
