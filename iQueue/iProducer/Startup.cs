@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using iUtility.Proxies.Producers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace iProducer
 {
@@ -35,6 +38,25 @@ namespace iProducer
                     await context.Response.WriteAsync("Hello World!");
                 });
             });
+
+            var proxy = new AddQueueProxy<F>(new HttpClient(), null as ILogger<Startup>);
+
+            try
+            {
+                var abc = proxy.GetAsync().Result;
+
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+
+        }
+
+
+        public class F
+        {
         }
     }
 }
