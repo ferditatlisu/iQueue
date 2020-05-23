@@ -4,6 +4,7 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
+EXPOSE 8000
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
@@ -20,3 +21,8 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "iQueue.dll"]
+
+
+
+#curl iqueue/api/home
+#producder dan queue bu sekilde request atabiliyoruz.

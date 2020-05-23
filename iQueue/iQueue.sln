@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iQueue", "iQueue\iQueue.csproj", "{5B4F1A84-E551-4AAE-9476-C11AC3F68348}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iQueue", "iQueue\iQueue.csproj", "{5B4F1A84-E551-4AAE-9476-C11AC3F68348}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iProducer", "iProducer\iProducer.csproj", "{65D369D4-CF54-4008-957F-891800E272C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iProducer", "iProducer\iProducer.csproj", "{65D369D4-CF54-4008-957F-891800E272C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iConsumer", "iConsumer\iConsumer.csproj", "{8B3A7B7C-AAFB-41BA-87C2-390D38202E0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iConsumer", "iConsumer\iConsumer.csproj", "{8B3A7B7C-AAFB-41BA-87C2-390D38202E0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iUtility", "iUtility\iUtility.csproj", "{873D2DB5-11F0-449D-A527-35BC5789A197}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iUtility", "iUtility\iUtility.csproj", "{873D2DB5-11F0-449D-A527-35BC5789A197}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iModel", "iModel\iModel.csproj", "{2AA54076-0719-4292-8F11-674EB95DD11B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iModel", "iModel\iModel.csproj", "{2AA54076-0719-4292-8F11-674EB95DD11B}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2EC4B5DC-F893-4891-A22D-5C4C4E673304}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{2AA54076-0719-4292-8F11-674EB95DD11B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AA54076-0719-4292-8F11-674EB95DD11B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AA54076-0719-4292-8F11-674EB95DD11B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EC4B5DC-F893-4891-A22D-5C4C4E673304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EC4B5DC-F893-4891-A22D-5C4C4E673304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EC4B5DC-F893-4891-A22D-5C4C4E673304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EC4B5DC-F893-4891-A22D-5C4C4E673304}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
