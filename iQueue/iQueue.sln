@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iModel", "iModel\iModel.csp
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2EC4B5DC-F893-4891-A22D-5C4C4E673304}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iHealthCheck", "..\iHealthCheck\iHealthCheck.csproj", "{5D8AA2E5-9FF7-4F0F-880F-2F6D6F2553F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,14 @@ Global
 		{2EC4B5DC-F893-4891-A22D-5C4C4E673304}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EC4B5DC-F893-4891-A22D-5C4C4E673304}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EC4B5DC-F893-4891-A22D-5C4C4E673304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D8AA2E5-9FF7-4F0F-880F-2F6D6F2553F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D8AA2E5-9FF7-4F0F-880F-2F6D6F2553F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D8AA2E5-9FF7-4F0F-880F-2F6D6F2553F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D8AA2E5-9FF7-4F0F-880F-2F6D6F2553F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C847BC0E-2C0B-4296-921C-327E5771FDFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C847BC0E-2C0B-4296-921C-327E5771FDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C847BC0E-2C0B-4296-921C-327E5771FDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C847BC0E-2C0B-4296-921C-327E5771FDFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

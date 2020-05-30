@@ -12,4 +12,10 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\iHealthCheck\iHealthCheck.csproj" />
+    <ProjectReference Include="..\iModel\iModel.csproj" />
+    <ProjectReference Include="..\iUtility\iUtility.csproj" />
+  </ItemGroup>
+
 </Project>
