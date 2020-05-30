@@ -18,14 +18,12 @@ namespace iProducer.Workers
     {
         private readonly LazyQueue<IConnection> _lazyRabbitMq;
         private readonly Lazy<IDatabase> _lazyRedis;
-        private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<ProducerBackgroundWorker> _logger;
 
-        public ProducerBackgroundWorker(ILogger<ProducerBackgroundWorker> logger, LazyQueue<IConnection> rabbitMq, Lazy<IDatabase> redis, IHttpClientFactory httpClientFactory)
+        public ProducerBackgroundWorker(ILogger<ProducerBackgroundWorker> logger, LazyQueue<IConnection> rabbitMq, Lazy<IDatabase> redis)
         {
             _lazyRabbitMq = rabbitMq;
             _lazyRedis = redis;
-            _httpClientFactory = httpClientFactory;
             _logger = logger;
         }
 
