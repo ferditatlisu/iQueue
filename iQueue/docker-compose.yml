@@ -1,0 +1,56 @@
+version: '3.4'
+
+services:
+  iqueue:
+    image: ${DOCKER_REGISTRY-}iqueue
+    build:
+      context: .
+      dockerfile: iQueue/Dockerfile
+    ports:
+      - "8000:80"
+    networks:
+      - webnet
+    depends_on:
+      - iconsumer
+  iproducer:
+    image: ${DOCKER_REGISTRY-}iproducer
+    build:
+      context: .
+      dockerfile: iProducer/Dockerfile
+    ports:
+      - "8001:80"
+    networks:
+      - webnet
+    depends_on:
+      - iqueue
+  iconsumer:
+    image: ${DOCKER_REGISTRY-}iconsumer
+    build:
+      context: .
+      dockerfile: iConsumer/Dockerfile
+    ports:
+      - "8002:80"
+    networks:
+      - webnet
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    environment:
+        RABBITMQ_DEFAULT_USER: test
+        RABBITMQ_DEFAULT_PASS: test
+    ports:
+        - 5672:5672
+        - 15672:15672
+    networks:
+      - webnet
+  redis:
+    image: redis:6.0.3-alpine
+    container_name: redis
+    ports:
+        - 6379:6379
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    external: true

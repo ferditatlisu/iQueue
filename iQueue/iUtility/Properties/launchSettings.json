@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "iUtility": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

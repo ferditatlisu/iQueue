@@ -34,5 +34,19 @@ namespace iQueue.Controllers
             await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Create(channelData);
             return "Created";
         }
+
+        [HttpGet]
+        public async Task<List<string>> GetChannels()
+        {
+            List<string> channels = new List<string>();
+            var chanels = await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Get();
+            if (channels != null)
+                foreach (var channel in chanels)
+                {
+                    channels.Add(channel.ChannelName);
+                }
+
+            return channels;
+        }
     }
 }
