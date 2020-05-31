@@ -5,6 +5,7 @@ using iModel.Queues;
 using iUtility.Channels;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RabbitMQ.Client;
 using StackExchange.Redis;
 using System;
@@ -20,7 +21,7 @@ namespace iProducer.Processes
         public static List<QueueData> QueueDatas { get; set; }
 
         private readonly ILogger _logger;
-        private readonly LazyQueue<IConnection> _lazyRabbitMq;
+        private readonly Lazy<IConnection> _lazyRabbitMq;
         private readonly Lazy<IDatabase> _lazyRedis;
 
 
@@ -29,7 +30,7 @@ namespace iProducer.Processes
             QueueDatas = new List<QueueData>();
         }
 
-        public ProducerSaveDataProcess(LazyQueue<IConnection> lazyRabbitMq, Lazy<IDatabase> lazyRedis, ILogger logger)
+        public ProducerSaveDataProcess(Lazy<IConnection> lazyRabbitMq, Lazy<IDatabase> lazyRedis, ILogger logger)
         {
             _logger = logger;
             _lazyRabbitMq = lazyRabbitMq;
@@ -56,9 +57,7 @@ namespace iProducer.Processes
                     var batchList = _lazyRabbitMq.Value.CreateModel().CreateBasicPublishBatch();
                     itemByChannel.Value.ForEach(x =>
                     {
-                        var jsonData = JsonConvert.SerializeObject(x.Data);
-                        var body = Encoding.UTF8.GetBytes(jsonData);
-                        batchList.Add(CustomKey.QUEUE_EXCHANGE_KEY, itemByChannel.Key, false, null, body);
+                        batchList.Add(CustomKey.QUEUE_EXCHANGE_KEY, itemByChannel.Key, false, null, x.Data);
                     });
 
                     batchList.Publish();

@@ -38,7 +38,7 @@ namespace iConsumer.Consumers
             if (!isHealthly)
                 return;
 
-            var consumeGetDataProcess = new ConsumeGetDataProcess<QueueData>(_lazyRabbitMq, _logger);
+            using var consumeGetDataProcess = new ConsumeGetDataProcess(_lazyRabbitMq, _logger);
 
             for (int i = 0; i < channelData.FetchCount; i++)
             {

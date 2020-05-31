@@ -38,16 +38,16 @@ namespace iUtility.Channels
             {
                 var channelName = channel.ChannelName;
                 var backgroundChannelItem = backgroundChannels.FirstOrDefault(x => x.ChannelName == channelName);
-                BackgroundQueueChannel newBackgroundChannelItem = channel as BackgroundQueueChannel;
                 if (backgroundChannelItem is null) 
                 {
-                    _cacheBackgroundChannelHelper.Create(newBackgroundChannelItem).Wait();  //Add
-                    backgroundChannels.Add(newBackgroundChannelItem);
+                    backgroundChannelItem = new BackgroundQueueChannel(channel);
+                    _cacheBackgroundChannelHelper.Create(backgroundChannelItem).Wait();  //Add
+                    backgroundChannels.Add(backgroundChannelItem);
                 }
                 else
                 {
                     //Update if it's needed!
-                    _cacheBackgroundChannelHelper.Update(newBackgroundChannelItem).Wait();  //Add
+                    _cacheBackgroundChannelHelper.Update(backgroundChannelItem).Wait();  //Add
                 }
             }
 

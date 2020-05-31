@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using iUtility.Middleware;
 namespace iQueue
 {
     public class Startup
@@ -30,7 +30,6 @@ namespace iQueue
             services.AddTransientRabbitMq();
             services.AddTransientRedis();
             services.AddLogging();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,7 +39,10 @@ namespace iQueue
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseHttpsRedirection();
+
+            app.UseErrorLoggingMiddleware();
+
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

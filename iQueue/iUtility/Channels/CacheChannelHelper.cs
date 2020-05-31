@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace iUtility.Channels
 {
-    public class CacheChannelHelper<T> where T: QueueChannel
+    public class CacheChannelHelper<T> where T: IQueueChannel
     {
         private readonly IDatabase _redis;
         protected string _CacheKey;

@@ -13,3 +13,8 @@ iHealthCheck/bin/
 iQueue/.vs/
 iQueue/iModel/obj/
 iQueue/iProducer/bin/
+iQueue/iPreConsumer/obj/
+iQueue/iPreProducer/bin/
+iQueue/iPreConsumer/bin/
+iQueue/iPreProducer/obj/
+iQueue/iQueue/obj/

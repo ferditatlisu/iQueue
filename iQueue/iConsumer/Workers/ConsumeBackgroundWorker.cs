@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Threading;
 using iConsumer.Consumers;
+using iUtility.Logs;
 
 namespace iConsumer.Workers
 {
@@ -34,6 +35,12 @@ namespace iConsumer.Workers
             while (!stoppingToken.IsCancellationRequested)
             {
                 var channels = await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Get();
+                if (channels?.Count == 0)
+                {
+                    //SlackLog.SendMessage("No channels");
+                }
+
+
                 if (!(channels is null) && channels.Count > 0)
                 {
                     var cacheBackgroundChannelHelper = new CacheBackgroundChannelHelper(_lazyRedis.Value);
@@ -41,7 +48,7 @@ namespace iConsumer.Workers
                     new CacheChannelCompare(_lazyRedis.Value).Execute(ref channels, ref backgroundChannels);
                     Parallel.ForEach(backgroundChannels, backgroundChannel =>
                     {
-                        var needExecute = backgroundChannel.ExecutedDate > DateTime.UtcNow;
+                        var needExecute = backgroundChannel.ExecutedDate.AddSeconds(backgroundChannel.ExecuteEverySecond) < DateTime.UtcNow;
                         if (needExecute)
                         {
                             backgroundChannel.ExecutedDate = DateTime.UtcNow;
@@ -51,7 +58,7 @@ namespace iConsumer.Workers
                     });
                 }
 
-                _logger.LogInformation("ConsumerWorker running at: {time}", DateTimeOffset.Now);
+                _logger.LogInformation("ConsumerWorker running at: {time}", DateTimeOffset.UtcNow);
                 await Task.Delay(1000, stoppingToken);
             }
         }

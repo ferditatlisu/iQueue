@@ -50,6 +50,17 @@ services:
         - 6379:6379
     networks:
       - webnet
+  ipreconsumer:
+    image: ${DOCKER_REGISTRY-}ipreconsumer
+    build:
+      context: .
+      dockerfile: iPreConsumer/Dockerfile
+    ports:
+      - "8003:80"
+    networks:
+      - webnet
+    depends_on:
+      - iconsumer
 
 networks:
   webnet:

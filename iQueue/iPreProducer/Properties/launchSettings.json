@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "iPreProducer": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

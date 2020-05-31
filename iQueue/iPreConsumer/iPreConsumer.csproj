@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>90ed5362-d225-401f-b135-9f29cfebdcbd</UserSecretsId>
+    <UserSecretsId>e327394f-1100-4e4d-ac2f-024aff70e568</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\iModel\iModel.csproj" />
     <ProjectReference Include="..\iUtility\iUtility.csproj" />
   </ItemGroup>
+
 
 </Project>

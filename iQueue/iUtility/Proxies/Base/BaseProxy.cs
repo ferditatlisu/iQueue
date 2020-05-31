@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,7 +43,8 @@ namespace iUtility.Proxies.Base
         {
             _HttpClient = httpClient;
             _Logger = logger;
-            _HttpClient.BaseAddress = new Uri(baseUrl);
+            if(baseUrl != null)
+                _HttpClient.BaseAddress = new Uri(baseUrl);
         }
 
         public virtual IBaseProxy<T> GetParameters(Dictionary<string, string> parameters)
@@ -90,7 +92,6 @@ namespace iUtility.Proxies.Base
         {
             var jsonData = JsonConvert.SerializeObject(data);
             _HttpContent = new StringContent(jsonData, Encoding.UTF8, CustomKey.JSON_CONTENT_TYPE);
-
             return this;
         }
 
@@ -115,7 +116,8 @@ namespace iUtility.Proxies.Base
             }
             catch (Exception e)
             {
-                throw e;
+                return jsonResponse as T;
+                //throw e;
             }
         }
 
