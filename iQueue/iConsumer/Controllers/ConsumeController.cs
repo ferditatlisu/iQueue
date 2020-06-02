@@ -24,23 +24,19 @@ namespace iConsumer.Controllers
     [Route("api/[controller]/[action]")]
 
     [ApiController]
-    public class HomeController : ControllerBase
+    public class ConsumeController : ControllerBase
     {
         private readonly LazyQueue<IConnection> _lazyRabbitMq;
         private readonly Lazy<IDatabase> _lazyRedis;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger _logger;
 
-        public HomeController(LazyQueue<IConnection> lazyRabbitMq, Lazy<IDatabase> lazyRedis, IHttpClientFactory httpClientFactory, ILogger<HomeController> logger)
+        public ConsumeController(LazyQueue<IConnection> lazyRabbitMq, Lazy<IDatabase> lazyRedis, IHttpClientFactory httpClientFactory, ILogger<ConsumeController> logger)
         {
             _lazyRabbitMq = lazyRabbitMq;
             _lazyRedis = lazyRedis;
             _httpClientFactory = httpClientFactory;
             _logger = logger;
         }
-
-        [HttpGet]
-        public async Task<string> Hello()
-            => "Hello I am iConsumer";
     }
 }

@@ -70,10 +70,5 @@ namespace iConsumer.Workers
                 await Task.Delay(1000, stoppingToken);
             }
         }
-
-        public override Task StopAsync(CancellationToken cancellationToken)
-        {
-            return base.StopAsync(cancellationToken);
-        }
     }
 }

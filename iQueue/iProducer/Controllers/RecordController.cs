@@ -11,22 +11,17 @@ namespace iProducer.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class HomeController : ControllerBase
+    public class RecordController : ControllerBase
     {
-        [HttpGet]
-        public async Task<string> Hello()
-            => "Hello I am iProcuder";
-
         [HttpPost]
-        public async Task<string> Post([FromBody] QueueData data)
+        public IActionResult Save([FromBody] QueueData data)
         {
-            //TODO:Test it and remove lock!
             lock (ProducerSaveDataProcess.QueueDatas) 
             {
                 ProducerSaveDataProcess.QueueDatas.Add(data);
             }
 
-            return "Done";
+            return NoContent();
         }
     }
 }

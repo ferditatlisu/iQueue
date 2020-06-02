@@ -15,28 +15,28 @@ namespace iQueue.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HomeController : ControllerBase
+    public class ChannelController : ControllerBase
     {
 
         private readonly LazyQueue<IConnection> _lazyRabbitMq;
         private readonly Lazy<IDatabase> _lazyRedis;
 
-        public HomeController(LazyQueue<IConnection> lazyRabbitMq, Lazy<IDatabase> lazyRedis)
+        public ChannelController(LazyQueue<IConnection> lazyRabbitMq, Lazy<IDatabase> lazyRedis)
         {
             _lazyRabbitMq = lazyRabbitMq;
             _lazyRedis = lazyRedis;
         }
 
         [HttpPost]
-        public async Task<string> CreateChannel([FromBody] QueueChannel channelData)
+        public async Task<IActionResult> CreateChannel([FromBody] QueueChannel channelData)
         {
             _lazyRabbitMq.Value.CreateModel().QueueDeclare(channelData.ChannelName, true, false, false, null);
             await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Create(channelData);
-            return "Created";
+            return NoContent();
         }
 
         [HttpGet]
-        public async Task<List<string>> GetChannels()
+        public async Task<IActionResult> GetChannels()
         {
             List<string> channels = new List<string>();
             var chanels = await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Get();
@@ -46,7 +46,7 @@ namespace iQueue.Controllers
                     channels.Add(channel.ChannelName);
                 }
 
-            return channels;
+            return Ok(channels);
         }
     }
 }

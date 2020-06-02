@@ -36,7 +36,7 @@ namespace iProducer.Processes
             _lazyRedis = lazyRedis;
         }
 
-        public async Task Execute()
+        public void Execute()
         {
             lock (QueueDatas)
             {

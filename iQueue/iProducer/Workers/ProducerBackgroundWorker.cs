@@ -29,7 +29,7 @@ namespace iProducer.Workers
             {
                 try
                 {
-                    await new ProducerSaveDataProcess(_lazyRabbitMq, _lazyRedis, _logger).Execute();
+                    new ProducerSaveDataProcess(_lazyRabbitMq, _lazyRedis, _logger).Execute();
                     _logger.LogInformation("ProducerWorker running at: {time}", DateTimeOffset.UtcNow);
                     await Task.Delay(5000, stoppingToken);
                 }
@@ -39,12 +39,6 @@ namespace iProducer.Workers
                     await Task.Delay(1000);
                 }
             }
-        }
-
-        public override Task StopAsync(CancellationToken cancellationToken)
-        {
-            //Tekrar calistirmali!!!
-            return base.StopAsync(cancellationToken);
         }
     }
 }

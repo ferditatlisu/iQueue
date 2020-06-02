@@ -65,7 +65,7 @@ namespace iPreProducer
             for (int i = 0; i < count; i++)
             {
                 using HttpClient client = new HttpClient();
-                client.PostAsync("http://localhost:8001/api/home/post", httpContent);
+                client.PostAsync("http://localhost:8001/api/record/save", httpContent);
                 await Task.Delay(10);
             }
         }
