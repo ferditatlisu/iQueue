@@ -49,7 +49,7 @@ namespace iPreProducer
             var json = JsonConvert.SerializeObject(data);
             HttpClient client = new HttpClient();
             var _HttpContent = new StringContent(json, Encoding.UTF8, "application/json");
-            client.PostAsync("http://localhost:8000/api/home", _HttpContent);
+            client.PostAsync("http://localhost:8000/api/channel", _HttpContent);
         }
 
         private static async Task SendRequest(int count = 1)
