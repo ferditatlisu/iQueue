@@ -18,12 +18,11 @@ namespace iProducer.Processes
 {
     public class ProducerSaveDataProcess
     {
-        public static List<QueueData> QueueDatas { get; set; }
+        public static readonly List<QueueData> QueueDatas;
 
         private readonly ILogger _logger;
         private readonly Lazy<IConnection> _lazyRabbitMq;
         private readonly Lazy<IDatabase> _lazyRedis;
-
 
         static ProducerSaveDataProcess()
         {
@@ -54,13 +53,14 @@ namespace iProducer.Processes
                 var channelExist = await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Exist(itemByChannel.Key);
                 if(channelExist)
                 {
-                    var batchList = _lazyRabbitMq.Value.CreateModel().CreateBasicPublishBatch();
+                    using var channel = _lazyRabbitMq.Value.CreateModel();
+                    var batchList = channel.CreateBasicPublishBatch();
                     itemByChannel.Value.ForEach(x =>
                     {
                         batchList.Add(CustomKey.QUEUE_EXCHANGE_KEY, itemByChannel.Key, false, null, x.Data);
                     });
 
-                    batchList.Publish();
+                    batchList.Publish(); //TODO: Need research. All of them success or failed ? || Is that possible half of package published but others failed. 
                 }
             }
         }

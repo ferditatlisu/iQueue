@@ -20,7 +20,8 @@ namespace iProducer.Controllers
         [HttpPost]
         public async Task<string> Post([FromBody] QueueData data)
         {
-            lock(ProducerSaveDataProcess.QueueDatas)
+            //TODO:Test it and remove lock!
+            lock (ProducerSaveDataProcess.QueueDatas) 
             {
                 ProducerSaveDataProcess.QueueDatas.Add(data);
             }

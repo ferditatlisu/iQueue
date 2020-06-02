@@ -32,42 +32,48 @@ namespace iConsumer.Workers
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
+            try
             {
-                var channels = await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Get();
-                if (channels?.Count == 0)
+                while (!stoppingToken.IsCancellationRequested)
                 {
-                    //SlackLog.SendMessage("No channels");
-                }
-
-
-                if (!(channels is null) && channels.Count > 0)
-                {
-                    var cacheBackgroundChannelHelper = new CacheBackgroundChannelHelper(_lazyRedis.Value);
-                    var backgroundChannels = await cacheBackgroundChannelHelper.Get();
-                    new CacheChannelCompare(_lazyRedis.Value).Execute(ref channels, ref backgroundChannels);
-                    Parallel.ForEach(backgroundChannels, backgroundChannel =>
+                    var channels = await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Get();
+                    if (channels?.Count == 0)
                     {
-                        var needExecute = backgroundChannel.ExecutedDate.AddSeconds(backgroundChannel.ExecuteEverySecond) < DateTime.UtcNow;
-                        if (needExecute)
-                        {
-                            backgroundChannel.ExecutedDate = DateTime.UtcNow;
-                            cacheBackgroundChannelHelper.Update(backgroundChannel).Wait();
-                            new ConsumeProcess(_lazyRabbitMq, _lazyRedis, _httpClientFactory, _logger).Execute(backgroundChannel).Wait();
-                        }
-                    });
-                }
+                        //SlackLog.SendMessage("No channels");
+                        continue;
+                    }
 
-                _logger.LogInformation("ConsumerWorker running at: {time}", DateTimeOffset.UtcNow);
+                    if (!(channels is null) && channels.Count > 0)
+                    {
+                        var cacheBackgroundChannelHelper = new CacheBackgroundChannelHelper(_lazyRedis.Value);
+                        var backgroundChannels = await cacheBackgroundChannelHelper.Get();
+                        new CacheChannelCompare(_lazyRedis.Value).Execute(ref channels, ref backgroundChannels);
+                        Parallel.ForEach(backgroundChannels, backgroundChannel =>
+                        {
+                            var needExecute = backgroundChannel.ExecutedDate.AddSeconds(backgroundChannel.ExecuteEverySecond) < DateTime.UtcNow;
+                            if (needExecute)
+                            {
+                                backgroundChannel.ExecutedDate = DateTime.UtcNow;
+                                cacheBackgroundChannelHelper.Update(backgroundChannel).Wait();
+                                new ConsumeProcess(_lazyRabbitMq, _lazyRedis, _httpClientFactory, _logger).Execute(backgroundChannel).Wait();
+                            }
+                        });
+                    }
+
+                    _logger.LogInformation("ConsumerWorker running at: {time}", DateTimeOffset.UtcNow);
+                    await Task.Delay(1000, stoppingToken);
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogCritical("Background worker of the Consumer get error", e);
                 await Task.Delay(1000, stoppingToken);
             }
         }
 
         public override Task StopAsync(CancellationToken cancellationToken)
         {
-            //Tekrar calistirmali !!!
             return base.StopAsync(cancellationToken);
-
         }
     }
 }

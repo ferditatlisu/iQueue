@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace iPreProducer
 {
@@ -25,7 +26,7 @@ namespace iPreProducer
                         CreateChannel();
                         break;
                     default:
-                        SendRequest(input);
+                        SendRequest(input).Wait();
                         break;
                 }
             }
@@ -48,22 +49,24 @@ namespace iPreProducer
             var json = JsonConvert.SerializeObject(data);
             HttpClient client = new HttpClient();
             var _HttpContent = new StringContent(json, Encoding.UTF8, "application/json");
-            var aaaaaa = client.PostAsync("http://localhost:8000/api/home", _HttpContent);
+            client.PostAsync("http://localhost:8000/api/home", _HttpContent);
         }
 
-        private static void SendRequest(int count = 1)
+        private static async Task SendRequest(int count = 1)
         {
+            PreProducerRequest rquest = new PreProducerRequest
+            {
+                ChannelName = _channelName,
+                Data = Encoding.UTF8.GetBytes("MyData")
+            };
+
+            var httpContent = new StringContent(JsonConvert.SerializeObject(rquest), Encoding.UTF8, "application/json");
+
             for (int i = 0; i < count; i++)
             {
-                PreProducerRequest rquest = new PreProducerRequest
-                {
-                    ChannelName = _channelName,
-                    Data = Encoding.UTF8.GetBytes("MyData")
-                };
-
-                HttpClient client = new HttpClient();
-                var _HttpContent = new StringContent(JsonConvert.SerializeObject(rquest), Encoding.UTF8, "application/json");
-                var aaaaaa = client.PostAsync("http://localhost:8001/api/home/post", _HttpContent).Result;
+                using HttpClient client = new HttpClient();
+                client.PostAsync("http://localhost:8001/api/home/post", httpContent);
+                await Task.Delay(10);
             }
         }
     }

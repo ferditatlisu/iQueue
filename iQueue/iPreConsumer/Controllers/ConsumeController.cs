@@ -15,7 +15,6 @@ namespace iPreConsumer.Controllers
             return "Done";
         }
 
-
         [HttpPost]
         public async Task Post([FromBody] QueueData request)
         {

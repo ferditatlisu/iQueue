@@ -27,9 +27,17 @@ namespace iProducer.Workers
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                await new ProducerSaveDataProcess(_lazyRabbitMq, _lazyRedis, _logger).Execute();
-                _logger.LogInformation("ProducerWorker running at: {time}", DateTimeOffset.UtcNow);
-                await Task.Delay(5000, stoppingToken);
+                try
+                {
+                    await new ProducerSaveDataProcess(_lazyRabbitMq, _lazyRedis, _logger).Execute();
+                    _logger.LogInformation("ProducerWorker running at: {time}", DateTimeOffset.UtcNow);
+                    await Task.Delay(5000, stoppingToken);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogCritical("Background worker of the Producer get error", e);
+                    await Task.Delay(1000);
+                }
             }
         }
 
