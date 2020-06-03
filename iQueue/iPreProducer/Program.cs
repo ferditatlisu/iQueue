@@ -42,7 +42,7 @@ namespace iPreProducer
                 ConsumeUrl = "http://ipreconsumer/api/consume",
                 FetchCount = 20,
                 FailureCount = 0,
-                ExecuteEverySecond = 2,
+                ExecuteEverySecond = 1,
                 HealthCheckUrl = "https://dpe-ru-deliveryclub-dev.azurewebsites.net/health/API"
             };
 
