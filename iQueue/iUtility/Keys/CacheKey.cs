@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace iModel.Keys
+namespace iUtility.Keys
 {
     public class CacheKey
     {

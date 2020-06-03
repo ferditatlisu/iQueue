@@ -1,17 +1,13 @@
 ﻿using iModel.Channels;
-using iModel.Customs;
-using iModel.Keys;
 using iModel.Queues;
 using iUtility.Channels;
+using iUtility.Keys;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using RabbitMQ.Client;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace iProducer.Processes
@@ -62,7 +58,7 @@ namespace iProducer.Processes
                     {
                         IBasicProperties properties = channel.CreateBasicProperties();
                         properties.Expiration = "10000";
-                        batchList.Add("", queueName, false, properties, x.Data);
+                        batchList.Add(CustomKey.QUEUE_DEFAULT_EXCHANGE_KEY, queueName, false, properties, x.Data);
                     });
 
                     batchList.Publish(); //TODO: Need research. All of them success or failed ? || Is that possible half of package published but others failed. 

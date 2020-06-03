@@ -24,10 +24,10 @@ namespace iConsumer
                 {
                     webBuilder.UseStartup<Startup>();
                 })
-                //.ConfigureServices((hostContext, services) =>
-                //{
-                //    services.AddHostedService<ConsumeBackgroundWorker>();
-                //})
+                .ConfigureServices((hostContext, services) =>
+                {
+                    services.AddHostedService<ConsumeBackgroundWorker>();
+                })
                 .ConfigureLogging(logging =>
                 {
                     logging.ClearProviders();

@@ -1,6 +1,6 @@
 ﻿using iModel.Channels;
-using iModel.Keys;
 using iUtility.Channels;
+using iUtility.Keys;
 using iUtility.Proxies;
 using Microsoft.Extensions.Logging;
 using StackExchange.Redis;

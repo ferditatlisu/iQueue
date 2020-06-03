@@ -51,7 +51,6 @@ namespace iQueue.Controllers
             channel.QueueDeclare(channelData.ChannelName, true, false, false, null);
             channel.QueueBind(channelData.ChannelName, exchangeName, delayQueueName, null);
 
-
             await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Create(channelData);
             channelData.ChannelName = delayQueueName;
             await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Create(channelData);

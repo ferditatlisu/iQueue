@@ -9,17 +9,22 @@ namespace iPreConsumer.Controllers
     [ApiController]
     public class ConsumeController : ControllerBase
     {
+        public static int Counter;
+
         [HttpGet]
         public async Task<string> Get()
         {
-            return "Done";
+            return "Done : " + Counter;
         }
 
         [HttpPost]
         public async Task Post([FromBody] QueueData request)
         {
-            var yourobject = System.Text.Encoding.UTF8.GetString(request.Data);
-            SlackLog.SendMessage($"I got : {yourobject}");
+            Counter++;
+            //var yourobject = System.Text.Encoding.UTF8.GetString(request.Data);
+            //SlackLog.SendMessage($"I got : {yourobject}");
         }
+
+
     }
 }

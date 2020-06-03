@@ -14,5 +14,8 @@ namespace iUtility.Keys
         public const char PLUS_KEY = '+';
 
         public const string JSON_CONTENT_TYPE = "application/json";
+
+        public const string HEALTH_CHECK_RESPONSE_KEY = "Success";
+        public const string QUEUE_DEFAULT_EXCHANGE_KEY = "";
     }
 }
