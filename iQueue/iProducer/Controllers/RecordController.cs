@@ -14,14 +14,21 @@ namespace iProducer.Controllers
     public class RecordController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Save([FromBody] QueueData data)
+        public async Task<IActionResult> Save([FromBody] QueueData data)
         {
             lock (ProducerSaveDataProcess.QueueDatas) 
             {
                 ProducerSaveDataProcess.QueueDatas.Add(data);
+                ProducerSaveDataProcess.QeueuDataCounter++;
             }
 
             return NoContent();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCounter()
+        {
+            return Ok(ProducerSaveDataProcess.QeueuDataCounter);
         }
     }
 }

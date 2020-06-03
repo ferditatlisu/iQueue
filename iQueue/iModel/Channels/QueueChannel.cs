@@ -12,5 +12,6 @@ namespace iModel.Channels
         public int FetchCount { get; set; }
         public string HealthCheckUrl { get; set; }
         public int FailureCount { get; set; }
+        public bool IsSchedule { get; set; }
     }
 }

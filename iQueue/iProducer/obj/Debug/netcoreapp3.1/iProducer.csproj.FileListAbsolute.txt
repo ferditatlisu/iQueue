@@ -121,6 +121,7 @@ C:\Projects-Github\iQueue\iQueue\iProducer\bin\Debug\netcoreapp3.1\iModel.dll
 C:\Projects-Github\iQueue\iQueue\iProducer\bin\Debug\netcoreapp3.1\iUtility.dll
 C:\Projects-Github\iQueue\iQueue\iProducer\bin\Debug\netcoreapp3.1\iModel.pdb
 C:\Projects-Github\iQueue\iQueue\iProducer\bin\Debug\netcoreapp3.1\iUtility.pdb
+C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\iProducer.csprojAssemblyReference.cache
 C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\iProducer.csproj.CoreCompileInputs.cache
 C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\iProducer.MvcApplicationPartsAssemblyInfo.cache
 C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\iProducer.AssemblyInfoInputs.cache
@@ -132,4 +133,3 @@ C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\staticwebasse
 C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\iProducer.dll
 C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\iProducer.pdb
 C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\iProducer.genruntimeconfig.cache
-C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\iProducer.csprojAssemblyReference.cache

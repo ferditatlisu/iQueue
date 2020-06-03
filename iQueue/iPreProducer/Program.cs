@@ -1,4 +1,5 @@
 ﻿using iModel.Channels;
+using iUtility.Logs;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -9,9 +10,9 @@ namespace iPreProducer
 {
     class Program
     {
-        private static string _channelName = "";
+        private static string _channelName = "Test";
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.WriteLine("Hello World!");
 
@@ -23,19 +24,18 @@ namespace iPreProducer
                 switch (input)
                 {
                     case 0:
-                        CreateChannel();
+                        await CreateChannel();
                         break;
                     default:
-                        SendRequest(input).Wait();
+                        await SendRequest(input);
                         break;
                 }
             }
             
         }
 
-        private static void CreateChannel()
+        private static async Task CreateChannel()
         {
-            _channelName = "Test";
             var data = new QueueChannel
             {
                 ChannelName = _channelName,
@@ -49,7 +49,7 @@ namespace iPreProducer
             var json = JsonConvert.SerializeObject(data);
             HttpClient client = new HttpClient();
             var _HttpContent = new StringContent(json, Encoding.UTF8, "application/json");
-            client.PostAsync("http://localhost:8000/api/channel", _HttpContent);
+            await client.PostAsync("http://localhost:8000/api/channel", _HttpContent);
         }
 
         private static async Task SendRequest(int count = 1)
@@ -62,12 +62,14 @@ namespace iPreProducer
 
             var httpContent = new StringContent(JsonConvert.SerializeObject(rquest), Encoding.UTF8, "application/json");
 
-            for (int i = 0; i < count; i++)
+            Parallel.For(0, count, (x) =>
             {
                 using HttpClient client = new HttpClient();
-                client.PostAsync("http://localhost:8001/api/record/save", httpContent);
-                await Task.Delay(10);
-            }
+                var response = client.PostAsync("http://localhost:8001/api/record/save", httpContent).Result;
+                var error = response.StatusCode != System.Net.HttpStatusCode.NoContent;
+                if (error)
+                    SlackLog.SendMessage($"Error. ResponseCode : {response.StatusCode}");
+            });
         }
     }
 

@@ -30,7 +30,30 @@ namespace iQueue.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateChannel([FromBody] QueueChannel channelData)
         {
-            _lazyRabbitMq.Value.CreateModel().QueueDeclare(channelData.ChannelName, true, false, false, null);
+            Dictionary<string, object> arguments = null;
+            using var channel = _lazyRabbitMq.Value.CreateModel();
+
+            var delayQueueName = $"{channelData.ChannelName}_Delay";
+            
+
+
+            string exchangeName = $"{channelData.ChannelName}_Exchange";
+            //if (channelData.IsSchedule)
+            {
+                channel.ExchangeDeclare(exchangeName, ExchangeType.Direct);
+                arguments = new Dictionary<string, object> { 
+                    { "x-dead-letter-exchange", exchangeName },
+                    { "x-dead-letter-routing-key",  delayQueueName}
+                };
+            }
+
+            channel.QueueDeclare(delayQueueName, true, false, false, arguments);
+            channel.QueueDeclare(channelData.ChannelName, true, false, false, null);
+            channel.QueueBind(channelData.ChannelName, exchangeName, delayQueueName, null);
+
+
+            await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Create(channelData);
+            channelData.ChannelName = delayQueueName;
             await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Create(channelData);
             return NoContent();
         }

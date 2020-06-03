@@ -18,6 +18,7 @@ namespace iProducer.Processes
 {
     public class ProducerSaveDataProcess
     {
+        public static int QeueuDataCounter;
         public static readonly List<QueueData> QueueDatas;
 
         private readonly ILogger _logger;
@@ -55,9 +56,13 @@ namespace iProducer.Processes
                 {
                     using var channel = _lazyRabbitMq.Value.CreateModel();
                     var batchList = channel.CreateBasicPublishBatch();
+                    string queueName = $"{itemByChannel.Key}_Delay";
+
                     itemByChannel.Value.ForEach(x =>
                     {
-                        batchList.Add(CustomKey.QUEUE_EXCHANGE_KEY, itemByChannel.Key, false, null, x.Data);
+                        IBasicProperties properties = channel.CreateBasicProperties();
+                        properties.Expiration = "10000";
+                        batchList.Add("", queueName, false, properties, x.Data);
                     });
 
                     batchList.Publish(); //TODO: Need research. All of them success or failed ? || Is that possible half of package published but others failed. 
