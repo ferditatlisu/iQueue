@@ -18,13 +18,12 @@ namespace iPreConsumer.Controllers
         }
 
         [HttpPost]
-        public async Task Post([FromBody] QueueData request)
+        public async Task<IActionResult> Post([FromBody] QueueData request)
         {
             Counter++;
             //var yourobject = System.Text.Encoding.UTF8.GetString(request.Data);
             //SlackLog.SendMessage($"I got : {yourobject}");
+            return Ok();
         }
-
-
     }
 }

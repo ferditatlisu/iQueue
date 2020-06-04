@@ -47,21 +47,16 @@ namespace iProducer.Processes
             var groupedChannelItems =  QueueDatas.GroupBy(x => x.ChannelName, (key, value) => new { Key = key, Value = value.ToList() }).ToList();
             foreach (var itemByChannel in groupedChannelItems)
             {
-                var channelExist = await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Exist(itemByChannel.Key);
+                var cacheChannelHelper = new CacheChannelHelper<QueueChannel>(_lazyRedis.Value);
+                var channelExist = await cacheChannelHelper.Exist(itemByChannel.Key);
                 if(channelExist)
                 {
-                    using var channel = _lazyRabbitMq.Value.CreateModel();
-                    var batchList = channel.CreateBasicPublishBatch();
-                    string queueName = $"{itemByChannel.Key}_Delay";
+                    var channelData = await cacheChannelHelper.Get(itemByChannel.Key);
+                    using var prepareQueueItem = channelData.IsSchedule ? 
+                        new PrepareScheduleQueueBatchItem(_lazyRabbitMq, channelData, itemByChannel.Value) : 
+                        new BasePrepareQueueBatchItem(_lazyRabbitMq, channelData, itemByChannel.Value);
 
-                    itemByChannel.Value.ForEach(x =>
-                    {
-                        IBasicProperties properties = channel.CreateBasicProperties();
-                        properties.Expiration = "10000";
-                        batchList.Add(CustomKey.QUEUE_DEFAULT_EXCHANGE_KEY, queueName, false, properties, x.Data);
-                    });
-
-                    batchList.Publish(); //TODO: Need research. All of them success or failed ? || Is that possible half of package published but others failed. 
+                    await prepareQueueItem.SendBatchPackage();
                 }
             }
         }

@@ -9,7 +9,7 @@ namespace iModel.Queues
     {
         public byte[] Data { get; set; }
         public string ChannelName { get; set; }
-        public int ScheduleTime { get; set; }
+        public string ScheduleTime { get; set; }
         public int FailedCount { get; set; }
     }
 }

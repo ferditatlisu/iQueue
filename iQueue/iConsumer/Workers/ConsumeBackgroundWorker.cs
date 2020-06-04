@@ -36,21 +36,21 @@ namespace iConsumer.Workers
             {
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    var channels = await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Get();
-                    if (channels?.Count == 0)
-                    {
-                        //SlackLog.SendMessage("No channels");
-                        continue;
-                    }
+                    var channels = await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).GetAll();
+                    //if (channels?.Count == 0)
+                    //{
+                    //    //SlackLog.SendMessage("No channels");
+                    //    continue;
+                    //}
 
                     if (!(channels is null) && channels.Count > 0)
                     {
                         var cacheBackgroundChannelHelper = new CacheBackgroundChannelHelper(_lazyRedis.Value);
-                        var backgroundChannels = await cacheBackgroundChannelHelper.Get();
+                        var backgroundChannels = await cacheBackgroundChannelHelper.GetAll();
                         new CacheChannelCompare(_lazyRedis.Value).Execute(ref channels, ref backgroundChannels);
                         Parallel.ForEach(backgroundChannels, backgroundChannel =>
                         {
-                            var needExecute = backgroundChannel.ExecutedDate.AddSeconds(backgroundChannel.ExecuteEverySecond) < DateTime.UtcNow;
+                            var needExecute = backgroundChannel.ExecutedDate.AddSeconds(backgroundChannel.ExecuteEverySecond) <= DateTime.UtcNow;
                             if (needExecute)
                             {
                                 backgroundChannel.ExecutedDate = DateTime.UtcNow;

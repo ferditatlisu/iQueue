@@ -1,4 +1,5 @@
 ﻿using iModel.Channels;
+using iModel.Queues;
 using iUtility.Logs;
 using Newtonsoft.Json;
 using System;
@@ -10,7 +11,7 @@ namespace iPreProducer
 {
     class Program
     {
-        private static string _channelName = "Test";
+        private static string _channelName = "Dos";
 
         static async Task Main(string[] args)
         {
@@ -43,7 +44,8 @@ namespace iPreProducer
                 FetchCount = 20,
                 FailureCount = 0,
                 ExecuteEverySecond = 1,
-                HealthCheckUrl = "https://dpe-ru-deliveryclub-dev.azurewebsites.net/health/API"
+                HealthCheckUrl = "https://dpe-ru-deliveryclub-dev.azurewebsites.net/health/API",
+                IsSchedule = true
             };
 
             var json = JsonConvert.SerializeObject(data);
@@ -54,10 +56,11 @@ namespace iPreProducer
 
         private static async Task SendRequest(int count = 1)
         {
-            PreProducerRequest rquest = new PreProducerRequest
+            QueueData rquest = new QueueData
             {
                 ChannelName = _channelName,
-                Data = Encoding.UTF8.GetBytes("MyData")
+                Data = Encoding.UTF8.GetBytes("TestData"),
+                ScheduleTime = "10000"
             };
 
             var httpContent = new StringContent(JsonConvert.SerializeObject(rquest), Encoding.UTF8, "application/json");
@@ -71,11 +74,5 @@ namespace iPreProducer
                     SlackLog.SendMessage($"Error. ResponseCode : {response.StatusCode}");
             });
         }
-    }
-
-    public class PreProducerRequest
-    {
-        public string ChannelName { get; set; }
-        public byte[] Data { get; set; }
     }
 }

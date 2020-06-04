@@ -43,7 +43,17 @@ namespace iUtility.Channels
         public async Task<bool> Exist(string channelName)
             => await _redis.HashExistsAsync(_CacheKey, channelName);
 
-        public async Task<List<T>> Get()
+        public async Task<T> Get(string channelName)
+        {
+            T channelData = default;
+            var channel = await _redis.HashGetAsync(_CacheKey, channelName);
+            if (channel.HasValue)
+                channelData = JsonConvert.DeserializeObject<T>(channel);
+
+            return channelData;
+        }
+
+        public virtual async Task<List<T>> GetAll()
         {
             List<T> channels = new List<T>();
             var cacheChannels = await _redis.HashGetAllAsync(_CacheKey);

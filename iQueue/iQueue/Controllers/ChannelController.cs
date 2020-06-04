@@ -7,6 +7,7 @@ using iModel.Customs;
 using iUtility.Channels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.HttpSys;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using StackExchange.Redis;
@@ -30,38 +31,39 @@ namespace iQueue.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateChannel([FromBody] QueueChannel channelData)
         {
-            Dictionary<string, object> arguments = null;
             using var channel = _lazyRabbitMq.Value.CreateModel();
-
-            var delayQueueName = $"{channelData.ChannelName}_Delay";
-            
-
-
-            string exchangeName = $"{channelData.ChannelName}_Exchange";
-            //if (channelData.IsSchedule)
-            {
-                channel.ExchangeDeclare(exchangeName, ExchangeType.Direct);
-                arguments = new Dictionary<string, object> { 
-                    { "x-dead-letter-exchange", exchangeName },
-                    { "x-dead-letter-routing-key",  delayQueueName}
-                };
-            }
-
-            channel.QueueDeclare(delayQueueName, true, false, false, arguments);
             channel.QueueDeclare(channelData.ChannelName, true, false, false, null);
-            channel.QueueBind(channelData.ChannelName, exchangeName, delayQueueName, null);
-
             await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Create(channelData);
-            channelData.ChannelName = delayQueueName;
-            await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Create(channelData);
+            if (channelData.IsSchedule)
+                await CreateScheduleQueue(channelData);
+            
             return NoContent();
+        }
+
+        private async Task CreateScheduleQueue(QueueChannel channelData)
+        {
+            using var channel = _lazyRabbitMq.Value.CreateModel();
+            Dictionary<string, object> arguments = null;
+
+            var delayQueueName = IQueueHelper.GetChannelNameForProducer(channelData);
+            string exchangeName = IQueueHelper.GetExchangeNameForDeadLetter(channelData);
+            
+            channel.ExchangeDeclare(exchangeName, ExchangeType.Direct);
+            arguments = new Dictionary<string, object> {
+                { "x-dead-letter-exchange", exchangeName },
+                { "x-dead-letter-routing-key",  delayQueueName},
+                //{ "x-queue-mode", "lazy" }
+            };
+            
+            channel.QueueDeclare(delayQueueName, true, false, false, arguments);
+            channel.QueueBind(channelData.ChannelName, exchangeName, delayQueueName, null);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetChannels()
         {
             List<string> channels = new List<string>();
-            var chanels = await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).Get();
+            var chanels = await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).GetAll();
             if (channels != null)
                 foreach (var channel in chanels)
                 {

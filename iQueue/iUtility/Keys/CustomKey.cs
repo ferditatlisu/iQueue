@@ -17,5 +17,8 @@ namespace iUtility.Keys
 
         public const string HEALTH_CHECK_RESPONSE_KEY = "Success";
         public const string QUEUE_DEFAULT_EXCHANGE_KEY = "";
+
+        public const string SCHEDULE_QUEUE_NAME_FORMAT = "{0}_Schedule"; //0 QueueName
+        public const string SCHEDULE_QUEUE_EXCHANGE_NAME_FORMAT = "{0}_Exchange"; //0 QueueName
     }
 }

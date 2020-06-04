@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Channels;
 
@@ -23,6 +24,7 @@ namespace iModel.Channels
             FetchCount = channel.FetchCount;
             HealthCheckUrl = channel.HealthCheckUrl;
             ExecuteEverySecond = channel.ExecuteEverySecond;
+            IsSchedule = channel.IsSchedule; 
         }
     }
 }

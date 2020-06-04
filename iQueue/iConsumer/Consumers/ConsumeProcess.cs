@@ -32,7 +32,7 @@ namespace iConsumer.Consumers
                 return;
 
             using var consumeGetDataProcess = new ConsumeGetDataProcess(_lazyRabbitMq, _logger);
-
+            //TODO: Circuit Breaker pattern
             for (int i = 0; i < channelData.FetchCount; i++)
             {
                 var data = await consumeGetDataProcess.Execute(channelData);

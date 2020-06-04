@@ -1,5 +1,6 @@
 ﻿using iModel.Channels;
 using iModel.Queues;
+using iUtility.Channels;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using System;
@@ -23,13 +24,14 @@ namespace iConsumer.Consumers
 
         public async Task<QueueData> Execute(BackgroundQueueChannel channelData)
         {
-            var queueData = _rabbitMqModel.BasicGet(channelData.ChannelName, true);
+            //TODO: 
+            var queueData = _rabbitMqModel.BasicGet(IQueueHelper.GetChannelNameForConsumer(channelData), true);
             if (queueData is null)
                 return null;
 
             QueueData data = new QueueData
             {
-                ChannelName = channelData.ChannelName,
+                ChannelName = IQueueHelper.GetChannelNameForConsumer(channelData),
                 Data = queueData.Body.ToArray()
             };
 

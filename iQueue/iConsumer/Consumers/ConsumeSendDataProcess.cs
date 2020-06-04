@@ -20,8 +20,8 @@ namespace iConsumer.Consumers
 
         public async Task Execute(T data)
         {
+            //TODO: Data kaybini onlemek icin dusunelim ve karsi taraf bizi yormadan! Guven -------o------Hiz
             var consumerProxy = new CustomProxy<string>(_httpClientFactory.CreateClient(), _logger, _targetUrl);
-
             consumerProxy.BodyParameter(data);
             consumerProxy.PostAsync();
         }

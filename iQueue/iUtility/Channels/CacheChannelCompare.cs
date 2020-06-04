@@ -37,7 +37,7 @@ namespace iUtility.Channels
             foreach (var channel in channels)
             {
                 var channelName = channel.ChannelName;
-                var backgroundChannelItem = backgroundChannels.FirstOrDefault(x => x.ChannelName == channelName);
+                var backgroundChannelItem = backgroundChannels?.FirstOrDefault(x => x.ChannelName == channelName);
                 if (backgroundChannelItem is null) 
                 {
                     backgroundChannelItem = new BackgroundQueueChannel(channel);
@@ -55,7 +55,7 @@ namespace iUtility.Channels
 
             // Phase 3 ----------------------------------------------
 
-            foreach (var backgroundChannel in backgroundChannels)
+            foreach (var backgroundChannel in backgroundChannels ?? default)
             {
                 var backgroundChannelName = backgroundChannel.ChannelName;
                 var channelItem = channels.FirstOrDefault(x => x.ChannelName == backgroundChannelName);
