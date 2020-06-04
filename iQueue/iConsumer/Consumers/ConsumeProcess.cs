@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using StackExchange.Redis;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -33,14 +34,18 @@ namespace iConsumer.Consumers
 
             using var consumeGetDataProcess = new ConsumeGetDataProcess(_lazyRabbitMq, _logger);
             //TODO: Circuit Breaker pattern
+            List<QueueData> queueDataList = new List<QueueData>();
             for (int i = 0; i < channelData.FetchCount; i++)
             {
                 var data = await consumeGetDataProcess.Execute(channelData);
                 if (data is null)
                     break;
 
-                await new ConsumeSendDataProcess<QueueData>(channelData.ConsumeUrl, _httpClientFactory, _logger).Execute(data);
+                queueDataList.Add(data);
             }
+
+            if(queueDataList.Count > 0)
+                await new ConsumeSendDataProcess<QueueData>(channelData.ConsumeUrl, _httpClientFactory, _logger).Execute(queueDataList);
         }
     }
 }

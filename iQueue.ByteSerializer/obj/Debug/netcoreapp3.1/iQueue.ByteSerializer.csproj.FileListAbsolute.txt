@@ -1,0 +1,16 @@
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\bin\Debug\netcoreapp3.1\iModel.exe
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\bin\Debug\netcoreapp3.1\iUtility.exe
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\bin\Debug\netcoreapp3.1\iQueue.ByteSerializer.deps.json
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\bin\Debug\netcoreapp3.1\iQueue.ByteSerializer.dll
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\bin\Debug\netcoreapp3.1\iQueue.ByteSerializer.pdb
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\bin\Debug\netcoreapp3.1\iModel.dll
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\bin\Debug\netcoreapp3.1\iUtility.dll
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\bin\Debug\netcoreapp3.1\iModel.pdb
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\bin\Debug\netcoreapp3.1\iUtility.pdb
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\obj\Debug\netcoreapp3.1\iQueue.ByteSerializer.csprojAssemblyReference.cache
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\obj\Debug\netcoreapp3.1\iQueue.ByteSerializer.csproj.CoreCompileInputs.cache
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\obj\Debug\netcoreapp3.1\iQueue.ByteSerializer.AssemblyInfoInputs.cache
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\obj\Debug\netcoreapp3.1\iQueue.ByteSerializer.AssemblyInfo.cs
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\obj\Debug\netcoreapp3.1\iQueue.ByteSerializer.csproj.CopyComplete
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\obj\Debug\netcoreapp3.1\iQueue.ByteSerializer.dll
+C:\Projects-Github\iQueue\iQueue.ByteSerializer\obj\Debug\netcoreapp3.1\iQueue.ByteSerializer.pdb

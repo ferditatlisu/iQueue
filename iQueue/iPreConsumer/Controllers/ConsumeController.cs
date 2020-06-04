@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using iModel.Queues;
 using iUtility.Logs;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +19,9 @@ namespace iPreConsumer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] QueueData request)
+        public async Task<IActionResult> Post([FromBody] List<QueueData> request)
         {
-            Counter++;
-            //var yourobject = System.Text.Encoding.UTF8.GetString(request.Data);
-            //SlackLog.SendMessage($"I got : {yourobject}");
+            Counter+= request.Count;
             return Ok();
         }
     }

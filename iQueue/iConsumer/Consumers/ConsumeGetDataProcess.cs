@@ -1,5 +1,6 @@
 ﻿using iModel.Channels;
 using iModel.Queues;
+using iQueue.ByteSerializer.Serializers;
 using iUtility.Channels;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
@@ -29,11 +30,9 @@ namespace iConsumer.Consumers
             if (queueData is null)
                 return null;
 
-            QueueData data = new QueueData
-            {
-                ChannelName = IQueueHelper.GetChannelNameForConsumer(channelData),
-                Data = queueData.Body.ToArray()
-            };
+            IQueueSerializer serializer = new IQueueSerializer();
+            var data = serializer.UnMergeData(queueData.Body);
+            data.ChannelName = channelData.ChannelName;
 
             return data;
         }

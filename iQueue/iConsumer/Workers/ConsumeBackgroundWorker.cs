@@ -37,11 +37,11 @@ namespace iConsumer.Workers
                 while (!stoppingToken.IsCancellationRequested)
                 {
                     var channels = await new CacheChannelHelper<QueueChannel>(_lazyRedis.Value).GetAll();
-                    //if (channels?.Count == 0)
-                    //{
-                    //    //SlackLog.SendMessage("No channels");
-                    //    continue;
-                    //}
+                    if (channels?.Count == 0)
+                    {
+                        //SlackLog.SendMessage("No channels");
+                        continue;
+                    }
 
                     if (!(channels is null) && channels.Count > 0)
                     {

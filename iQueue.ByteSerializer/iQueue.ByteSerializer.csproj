@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\iQueue\iModel\iModel.csproj" />
+    <ProjectReference Include="..\iQueue\iUtility\iUtility.csproj" />
+  </ItemGroup>
+
+</Project>

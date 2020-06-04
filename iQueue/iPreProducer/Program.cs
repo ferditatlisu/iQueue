@@ -1,5 +1,6 @@
 ﻿using iModel.Channels;
 using iModel.Queues;
+using iQueue.ByteSerializer.Serializers;
 using iUtility.Logs;
 using Newtonsoft.Json;
 using System;
@@ -16,6 +17,10 @@ namespace iPreProducer
         static async Task Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+
+            IQueueSerializer serializer = new IQueueSerializer();
+            var sendingData = new QueueChannel { ChannelName = "xxxxx" };
+            var queueData = serializer.PrepareQueueObject(_channelName, sendingData, "555");
 
             while (true)
             {
@@ -56,14 +61,10 @@ namespace iPreProducer
 
         private static async Task SendRequest(int count = 1)
         {
-            QueueData rquest = new QueueData
-            {
-                ChannelName = _channelName,
-                Data = Encoding.UTF8.GetBytes("TestData"),
-                ScheduleTime = "10000"
-            };
-
-            var httpContent = new StringContent(JsonConvert.SerializeObject(rquest), Encoding.UTF8, "application/json");
+            var sendingData = new QueueChannel { ChannelName = "xxxxx" };
+            IQueueSerializer serializer = new IQueueSerializer();
+            var queueData = serializer.PrepareQueueObject(_channelName, sendingData, "4444");
+            var httpContent = new StringContent(JsonConvert.SerializeObject(queueData), Encoding.UTF8, "application/json");
 
             Parallel.For(0, count, (x) =>
             {
