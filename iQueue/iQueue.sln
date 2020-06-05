@@ -21,7 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iPreConsumer", "iPreConsume
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iPreProducer", "iPreProducer\iPreProducer.csproj", "{C7BBADD2-7F5E-4C05-AD56-D291037EDEFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iQueue.ByteSerializer", "..\iQueue.ByteSerializer\iQueue.ByteSerializer.csproj", "{796AF2F0-3059-4C4C-BE26-8787AE1E5422}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iQueue.ByteSerializer", "..\iQueue.ByteSerializer\iQueue.ByteSerializer.csproj", "{796AF2F0-3059-4C4C-BE26-8787AE1E5422}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iLogger", "iLogger", "{1F2E8250-9DE1-4085-9CAC-09339CF99113}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iQueue.RavenStorage", "..\iQueue.RavenStorage\iQueue.RavenStorage.csproj", "{A925F340-9892-488D-AD03-EEB334D23EFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,9 +73,16 @@ Global
 		{796AF2F0-3059-4C4C-BE26-8787AE1E5422}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{796AF2F0-3059-4C4C-BE26-8787AE1E5422}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{796AF2F0-3059-4C4C-BE26-8787AE1E5422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A925F340-9892-488D-AD03-EEB334D23EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A925F340-9892-488D-AD03-EEB334D23EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A925F340-9892-488D-AD03-EEB334D23EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A925F340-9892-488D-AD03-EEB334D23EFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A925F340-9892-488D-AD03-EEB334D23EFD} = {1F2E8250-9DE1-4085-9CAC-09339CF99113}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FF4CFFCF-9201-41BE-8339-387A3FB1C488}
