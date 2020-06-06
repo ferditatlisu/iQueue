@@ -19,3 +19,7 @@ iQueue/iPreConsumer/bin/
 iQueue/iPreProducer/obj/
 iQueue/iQueue/obj/
 iQueue.RavenStorage/obj/
+iQueue/iQueue.ByteSerializer/obj/
+iQueue/iQueue.ByteSerializer/bin/
+iQueue/iQueue.RavenStorage/obj/
+iQueue/iQueue.RavenStorage/bin/

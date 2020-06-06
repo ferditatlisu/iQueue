@@ -1,3 +1,4 @@
+using iQueue.RavenStorage.Extensions;
 using iUtility.Extensions;
 using iUtility.Middleware;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +26,7 @@ namespace iConsumer
             services.AddControllers();
             services.AddSingletonRabbitMq();
             services.AddSingletonRedis();
+            services.AddRavenDB();
             services.AddLogging();
         }
 

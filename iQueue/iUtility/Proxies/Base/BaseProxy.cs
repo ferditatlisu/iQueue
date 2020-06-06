@@ -98,7 +98,7 @@ namespace iUtility.Proxies.Base
         public virtual async Task<IBaseProxy<T>> PostAsync()
         {
             _HttpResponseMessage = await _HttpClient.PostAsync(_ActionName, _HttpContent);
-            if (_HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.OK)
+            if (200 <= (int)_HttpResponseMessage.StatusCode && (int)_HttpResponseMessage.StatusCode < 300)
                 OnSuccess?.Invoke(_HttpResponseMessage);
             else
                 OnError?.Invoke(_HttpResponseMessage);

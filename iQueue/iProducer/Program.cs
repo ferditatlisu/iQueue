@@ -27,10 +27,10 @@ namespace iProducer
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<ProducerBackgroundWorker>();
+                    services.AddHostedService<ProcessCompletedBackgroundWorker>();
                 })
                 .ConfigureLogging(logging =>
                 {
-                    logging.ClearProviders();
                     logging.SetMinimumLevel(LogLevel.Information);
                 });
     }

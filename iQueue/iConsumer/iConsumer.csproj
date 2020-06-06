@@ -12,8 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\iQueue.ByteSerializer\iQueue.ByteSerializer.csproj" />
     <ProjectReference Include="..\iModel\iModel.csproj" />
+    <ProjectReference Include="..\iQueue.ByteSerializer\iQueue.ByteSerializer.csproj" />
+    <ProjectReference Include="..\iQueue.RavenStorage\iQueue.RavenStorage.csproj" />
     <ProjectReference Include="..\iUtility\iUtility.csproj" />
   </ItemGroup>
 

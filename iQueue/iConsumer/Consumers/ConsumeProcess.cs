@@ -1,10 +1,13 @@
 ﻿using iModel.Channels;
 using iModel.Queues;
+using iModel.Utilities;
+using iUtility.Storages;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -14,14 +17,16 @@ namespace iConsumer.Consumers
     {
         private readonly Lazy<IConnection> _lazyRabbitMq;
         private readonly Lazy<IDatabase> _lazyRedis;
+        private readonly Lazy<IQueueStorage> _storageService;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger _logger;
 
 
-        public ConsumeProcess(Lazy<IConnection> lazyRabbitMq, Lazy<IDatabase> lazyRedis, IHttpClientFactory httpClientFactory, ILogger logger)
+        public ConsumeProcess(Lazy<IConnection> lazyRabbitMq, Lazy<IDatabase> lazyRedis, Lazy<IQueueStorage> storageService, IHttpClientFactory httpClientFactory, ILogger logger)
         {
             _lazyRabbitMq = lazyRabbitMq;
             _lazyRedis = lazyRedis;
+            _storageService = storageService;
             _httpClientFactory = httpClientFactory;
             _logger = logger;
         }
@@ -46,6 +51,8 @@ namespace iConsumer.Consumers
 
             if(queueDataList.Count > 0)
                 await new ConsumeSendDataProcess<QueueData>(channelData.ConsumeUrl, _httpClientFactory, _logger).Execute(queueDataList);
+
+            await _storageService.Value.BulkInsertProducerEnterLog(queueDataList.Select(x=> x.QueueId), MessageStatus.ConsumerEntry);
         }
     }
 }

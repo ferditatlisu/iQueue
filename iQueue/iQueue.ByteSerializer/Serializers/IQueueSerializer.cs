@@ -18,7 +18,7 @@ namespace iQueue.ByteSerializer.Serializers
 
             QueueData queueData = new QueueData
             {
-                Id = queueId,
+                QueueId = queueId,
                 ChannelName = channelName,
                 Data = MergeData(data, queueId)
             };
@@ -53,7 +53,7 @@ namespace iQueue.ByteSerializer.Serializers
 
             QueueData queueData = new QueueData
             {
-                Id = id,
+                QueueId = id,
                 Data = byteArrayData,
             };
 

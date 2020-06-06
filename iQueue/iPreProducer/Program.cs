@@ -17,11 +17,6 @@ namespace iPreProducer
         static async Task Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-
-            IQueueSerializer serializer = new IQueueSerializer();
-            var sendingData = new QueueChannel { ChannelName = "xxxxx" };
-            var queueData = serializer.PrepareQueueObject(_channelName, sendingData, "555");
-
             while (true)
             {
                 Console.WriteLine("Choose number :  \n0-> Create Channel \n1+ -> Count of request send to channel that created");
@@ -50,7 +45,7 @@ namespace iPreProducer
                 FailureCount = 0,
                 ExecuteEverySecond = 1,
                 HealthCheckUrl = "https://dpe-ru-deliveryclub-dev.azurewebsites.net/health/API",
-                IsSchedule = true
+                IsSchedule = false
             };
 
             var json = JsonConvert.SerializeObject(data);
@@ -63,11 +58,10 @@ namespace iPreProducer
         {
             var sendingData = new QueueChannel { ChannelName = "xxxxx" };
             IQueueSerializer serializer = new IQueueSerializer();
-            var queueData = serializer.PrepareQueueObject(_channelName, sendingData, "4444");
-            var httpContent = new StringContent(JsonConvert.SerializeObject(queueData), Encoding.UTF8, "application/json");
-
             Parallel.For(0, count, (x) =>
             {
+                var queueData = serializer.PrepareQueueObject(_channelName, sendingData);
+                var httpContent = new StringContent(JsonConvert.SerializeObject(queueData), Encoding.UTF8, "application/json");
                 using HttpClient client = new HttpClient();
                 var response = client.PostAsync("http://localhost:8001/api/record/save", httpContent).Result;
                 var error = response.StatusCode != System.Net.HttpStatusCode.NoContent;

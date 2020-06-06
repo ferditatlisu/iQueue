@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\iQueue\iModel\iModel.csproj" />
-    <ProjectReference Include="..\iQueue\iUtility\iUtility.csproj" />
+    <ProjectReference Include="..\iModel\iModel.csproj" />
+    <ProjectReference Include="..\iUtility\iUtility.csproj" />
   </ItemGroup>
 
 </Project>

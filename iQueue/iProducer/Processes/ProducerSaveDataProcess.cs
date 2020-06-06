@@ -2,6 +2,7 @@
 using iModel.Queues;
 using iUtility.Channels;
 using iUtility.Keys;
+using iUtility.Storages;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using StackExchange.Redis;
@@ -20,25 +21,29 @@ namespace iProducer.Processes
         private readonly ILogger _logger;
         private readonly Lazy<IConnection> _lazyRabbitMq;
         private readonly Lazy<IDatabase> _lazyRedis;
-
+        private readonly Lazy<IQueueStorage> _lazyStorageService;
         static ProducerSaveDataProcess()
         {
             QueueDatas = new List<QueueData>();
         }
 
-        public ProducerSaveDataProcess(Lazy<IConnection> lazyRabbitMq, Lazy<IDatabase> lazyRedis, ILogger logger)
+        public ProducerSaveDataProcess(Lazy<IConnection> lazyRabbitMq, Lazy<IDatabase> lazyRedis, Lazy<IQueueStorage> lazyStorageService, ILogger logger)
         {
             _logger = logger;
             _lazyRabbitMq = lazyRabbitMq;
             _lazyRedis = lazyRedis;
+            _lazyStorageService = lazyStorageService;
         }
 
         public void Execute()
         {
             lock (QueueDatas)
             {
-                Do().Wait();
-                QueueDatas.Clear();
+                if (QueueDatas.Count > 0)
+                { 
+                    Do().Wait();
+                    QueueDatas.Clear();
+                }
             }
         }
 
@@ -53,8 +58,8 @@ namespace iProducer.Processes
                 {
                     var channelData = await cacheChannelHelper.Get(itemByChannel.Key);
                     using var prepareQueueItem = channelData.IsSchedule ? 
-                        new PrepareScheduleQueueBatchItem(_lazyRabbitMq, channelData, itemByChannel.Value) : 
-                        new BasePrepareQueueBatchItem(_lazyRabbitMq, channelData, itemByChannel.Value);
+                        new PrepareScheduleQueueBatchItem(_lazyRabbitMq, _lazyRedis, _lazyStorageService, channelData, itemByChannel.Value) : 
+                        new BasePrepareQueueBatchItem(_lazyRabbitMq, _lazyRedis, _lazyStorageService, channelData, itemByChannel.Value);
 
                     await prepareQueueItem.SendBatchPackage();
                 }

@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading;
 using iConsumer.Consumers;
 using iUtility.Logs;
+using iUtility.Storages;
 
 namespace iConsumer.Workers
 {
@@ -19,13 +20,15 @@ namespace iConsumer.Workers
     {
         private readonly Lazy<IConnection> _lazyRabbitMq;
         private readonly Lazy<IDatabase> _lazyRedis;
+        private readonly Lazy<IQueueStorage> _storageService;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<ConsumeBackgroundWorker> _logger;
 
-        public ConsumeBackgroundWorker(ILogger<ConsumeBackgroundWorker> logger, Lazy<IConnection> rabbitMq, Lazy<IDatabase> redis, IHttpClientFactory httpClientFactory)
+        public ConsumeBackgroundWorker(ILogger<ConsumeBackgroundWorker> logger, Lazy<IConnection> rabbitMq, Lazy<IDatabase> redis, Lazy<IQueueStorage> storageService, IHttpClientFactory httpClientFactory)
         {
             _lazyRabbitMq = rabbitMq;
             _lazyRedis = redis;
+            _storageService = storageService;
             _httpClientFactory = httpClientFactory;
             _logger = logger;
         }
@@ -55,7 +58,7 @@ namespace iConsumer.Workers
                             {
                                 backgroundChannel.ExecutedDate = DateTime.UtcNow;
                                 cacheBackgroundChannelHelper.Update(backgroundChannel).Wait();
-                                new ConsumeProcess(_lazyRabbitMq, _lazyRedis, _httpClientFactory, _logger).Execute(backgroundChannel).Wait();
+                                new ConsumeProcess(_lazyRabbitMq, _lazyRedis, _storageService, _httpClientFactory, _logger).Execute(backgroundChannel).Wait();
                             }
                         });
                     }

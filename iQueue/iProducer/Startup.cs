@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using iQueue.RavenStorage.Extensions;
 using iUtility.Extensions;
 using iUtility.Middleware;
 using Microsoft.AspNetCore.Builder;
@@ -35,6 +36,7 @@ namespace iProducer
             services.AddSingletonRabbitMq();
             services.AddTransientRedis();
             services.AddSingletonRedis();
+            services.AddRavenDB();
             services.AddLogging();
         }
 

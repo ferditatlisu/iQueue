@@ -1,8 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using iModel.Queues;
 using iUtility.Logs;
+using iUtility.Proxies;
+using iUtility.Proxies.Base;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace iPreConsumer.Controllers
 {
@@ -11,6 +16,14 @@ namespace iPreConsumer.Controllers
     public class ConsumeController : ControllerBase
     {
         public static int Counter;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ILogger _logger;
+
+        public ConsumeController(IHttpClientFactory httpClientFactory, ILogger<ConsumeController> logger)
+        {
+            _httpClientFactory = httpClientFactory;
+            _logger = logger;
+        }
 
         [HttpGet]
         public async Task<string> Get()
@@ -19,10 +32,13 @@ namespace iPreConsumer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] List<QueueData> request)
+        public async Task Post([FromBody] List<QueueData> request)
         {
             Counter+= request.Count;
-            return Ok();
+
+            var consumerProxy = new CustomProxy<string>(_httpClientFactory.CreateClient(), _logger, "http://iproducer/api/record/CompletedAsList");
+            consumerProxy.BodyParameter(request.Select(x => x.QueueId).ToList());
+            consumerProxy.PostAsync();
         }
     }
 }

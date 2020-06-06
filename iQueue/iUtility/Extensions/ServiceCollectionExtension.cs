@@ -26,8 +26,6 @@ namespace iUtility.Extensions
             services.AddSingleton<Lazy<IConnection>>(x =>
                   new Lazy<IConnection>(() =>
                   {
-                      //var factory = new ConnectionFactory { HostName = "172.19.0.2", Port = 5672, UserName = "test", Password = "test", RequestedConnectionTimeout = TimeSpan.FromSeconds(10) };
-                      //var factory = new ConnectionFactory { HostName = "localhost"};
                       var factory = new ConnectionFactory { HostName = "rabbitmq", Port = 5672, UserName = "test", Password = "test", RequestedConnectionTimeout = TimeSpan.FromSeconds(10) };
                       var connection = factory.CreateConnection();
                       return connection;

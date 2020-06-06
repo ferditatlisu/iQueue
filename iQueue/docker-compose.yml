@@ -50,6 +50,22 @@ services:
         - 6379:6379
     networks:
       - webnet
+  raven:
+    image: ravendb/ravendb
+    container_name: raven
+    ports:
+        - 8080:8080
+        - 38888:38888
+    networks:
+      - webnet
+    environment:
+      - RAVEN_Security_UnsecuredAccessAllowed=PrivateNetwork
+      - RAVEN_Setup_Mode=None
+      - RAVEN_License_Eula_Accepted=true
+      - "RAVEN_ServerUrl=http://0.0.0.0:8080"
+      - "RAVEN_PublicServerUrl=http://raven:8080"
+      - "RAVEN_ServerUrl_Tcp=tcp://0.0.0.0:38888"
+      - "RAVEN_PublicServerUrl_Tcp=tcp://hostos:38888"
   ipreconsumer:
     image: ${DOCKER_REGISTRY-}ipreconsumer
     build:
