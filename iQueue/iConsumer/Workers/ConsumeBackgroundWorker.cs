@@ -13,20 +13,21 @@ using System.Threading;
 using iConsumer.Consumers;
 using iUtility.Logs;
 using iUtility.Storages;
+using iUtility.Services;
 
 namespace iConsumer.Workers
 {
     public class ConsumeBackgroundWorker : BackgroundService
     {
-        private readonly Lazy<IConnection> _lazyRabbitMq;
+        private readonly Lazy<IQueueService> _queueService;
         private readonly Lazy<IDatabase> _lazyRedis;
-        private readonly Lazy<IQueueStorage> _storageService;
+        private readonly Lazy<IStorageService> _storageService;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<ConsumeBackgroundWorker> _logger;
 
-        public ConsumeBackgroundWorker(ILogger<ConsumeBackgroundWorker> logger, Lazy<IConnection> rabbitMq, Lazy<IDatabase> redis, Lazy<IQueueStorage> storageService, IHttpClientFactory httpClientFactory)
+        public ConsumeBackgroundWorker(ILogger<ConsumeBackgroundWorker> logger, Lazy<IQueueService> queueService, Lazy<IDatabase> redis, Lazy<IStorageService> storageService, IHttpClientFactory httpClientFactory)
         {
-            _lazyRabbitMq = rabbitMq;
+            _queueService = queueService;
             _lazyRedis = redis;
             _storageService = storageService;
             _httpClientFactory = httpClientFactory;
@@ -58,7 +59,7 @@ namespace iConsumer.Workers
                             {
                                 backgroundChannel.ExecutedDate = DateTime.UtcNow;
                                 cacheBackgroundChannelHelper.Update(backgroundChannel).Wait();
-                                new ConsumeProcess(_lazyRabbitMq, _lazyRedis, _storageService, _httpClientFactory, _logger).Execute(backgroundChannel).Wait();
+                                new ConsumeProcess(_queueService, _lazyRedis, _storageService, _httpClientFactory, _logger).Execute(backgroundChannel).Wait();
                             }
                         });
                     }

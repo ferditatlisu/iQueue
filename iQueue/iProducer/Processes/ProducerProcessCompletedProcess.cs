@@ -3,7 +3,6 @@ using iUtility.Storages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace iProducer.Processes
@@ -13,14 +12,14 @@ namespace iProducer.Processes
         public static readonly List<string> ProcessCompletedIds;
 
         private readonly ILogger _logger;
-        private readonly Lazy<IQueueStorage> _lazyStorageService;
+        private readonly Lazy<IStorageService> _lazyStorageService;
 
         static ProducerProcessCompletedProcess()
         {
             ProcessCompletedIds = new List<string>();
         }
 
-        public ProducerProcessCompletedProcess(Lazy<IQueueStorage> lazyStorageService, ILogger logger)
+        public ProducerProcessCompletedProcess(Lazy<IStorageService> lazyStorageService, ILogger logger)
         {
             _logger = logger;
             _lazyStorageService = lazyStorageService;
@@ -40,7 +39,8 @@ namespace iProducer.Processes
 
         private async Task Do()
         {
-            await _lazyStorageService.Value.BulkInsertProducerEnterLog(ProcessCompletedIds, MessageStatus.CustomerApprove);
+            using var storageConnection = _lazyStorageService.Value.CreateConnection();
+            await storageConnection.BulkInsertProducerEnterLog(ProcessCompletedIds, MessageStatus.CustomerApprove);
         }
     }
 }

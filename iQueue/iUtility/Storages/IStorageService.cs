@@ -7,7 +7,12 @@ using System.Threading.Tasks;
 
 namespace iUtility.Storages
 {
-    public interface IQueueStorage : IDisposable
+    public interface IStorageService
+    {
+        IStorageConnection CreateConnection();
+    }
+
+    public interface IStorageConnection : IDisposable
     {
         Task AddData(QueueData queueData);
         Task AddLog(QueueData queueData, MessageStatus status);

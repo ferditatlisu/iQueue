@@ -1,7 +1,9 @@
 ﻿using iModel.Channels;
 using iModel.Queues;
+using iModel.Utilities;
 using iUtility.Channels;
 using iUtility.Keys;
+using iUtility.Services;
 using iUtility.Storages;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
@@ -19,18 +21,18 @@ namespace iProducer.Processes
         public static readonly List<QueueData> QueueDatas;
 
         private readonly ILogger _logger;
-        private readonly Lazy<IConnection> _lazyRabbitMq;
+        private readonly Lazy<IQueueService> _lazyQueueService;
         private readonly Lazy<IDatabase> _lazyRedis;
-        private readonly Lazy<IQueueStorage> _lazyStorageService;
+        private readonly Lazy<IStorageService> _lazyStorageService;
         static ProducerSaveDataProcess()
         {
             QueueDatas = new List<QueueData>();
         }
 
-        public ProducerSaveDataProcess(Lazy<IConnection> lazyRabbitMq, Lazy<IDatabase> lazyRedis, Lazy<IQueueStorage> lazyStorageService, ILogger logger)
+        public ProducerSaveDataProcess(Lazy<IQueueService> lazyQueueService, Lazy<IDatabase> lazyRedis, Lazy<IStorageService> lazyStorageService, ILogger logger)
         {
             _logger = logger;
-            _lazyRabbitMq = lazyRabbitMq;
+            _lazyQueueService = lazyQueueService;
             _lazyRedis = lazyRedis;
             _lazyStorageService = lazyStorageService;
         }
@@ -57,11 +59,12 @@ namespace iProducer.Processes
                 if(channelExist)
                 {
                     var channelData = await cacheChannelHelper.Get(itemByChannel.Key);
-                    using var prepareQueueItem = channelData.IsSchedule ? 
-                        new PrepareScheduleQueueBatchItem(_lazyRabbitMq, _lazyRedis, _lazyStorageService, channelData, itemByChannel.Value) : 
-                        new BasePrepareQueueBatchItem(_lazyRabbitMq, _lazyRedis, _lazyStorageService, channelData, itemByChannel.Value);
+                    using var queueConnection = _lazyQueueService.Value.CreateConnection();
+                    await queueConnection.BulkInsertData(QueueDatas, channelData);
+                    using var storageConnection = _lazyStorageService.Value.CreateConnection();
 
-                    await prepareQueueItem.SendBatchPackage();
+                    await storageConnection.BulkInsertData(QueueDatas);
+                    await storageConnection.BulkInsertProducerEnterLog(QueueDatas.Select(x => x.QueueId), MessageStatus.ProcuderEntry);
                 }
             }
         }

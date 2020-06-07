@@ -23,11 +23,11 @@ namespace iQueue.RavenStorage.Extensions
 
         public static void AddRavenDB(this IServiceCollection services)
         {
-            services.AddSingleton<Lazy<IQueueStorage>>(x =>
-                new Lazy<IQueueStorage>(() =>
+            services.AddSingleton<Lazy<IStorageService>>(x =>
+                new Lazy<IStorageService>(() =>
                 {
                     var iDocumentStore = CreateConnection().Result;
-                    return new RavenStorage(iDocumentStore);
+                    return new RavenStorageService(iDocumentStore);
                 }));
 
             //services.AddScoped<IQueueStorage>(sp =>

@@ -2,6 +2,7 @@
 using iModel.Queues;
 using iQueue.ByteSerializer.Serializers;
 using iUtility.Channels;
+using iUtility.Services;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using System;
@@ -11,27 +12,27 @@ namespace iConsumer.Consumers
 {
     public class ConsumeGetDataProcess : IDisposable
     {
-        private readonly Lazy<IConnection> _lazyRabbitMq;
+        private readonly Lazy<IQueueService> _queueService;
         private readonly ILogger _logger;
 
-        private readonly IModel _rabbitMqModel;
+        private readonly IQeueuConnection _queueConnection;
 
-        public ConsumeGetDataProcess(Lazy<IConnection> lazyRabbitMq, ILogger logger)
+        public ConsumeGetDataProcess(Lazy<IQueueService> queueService, ILogger logger)
         {
-            _lazyRabbitMq = lazyRabbitMq;
+            _queueService = queueService;
             _logger = logger;
-            _rabbitMqModel = _lazyRabbitMq.Value.CreateModel();
+            _queueConnection = _queueService.Value.CreateConnection();
         }
 
         public async Task<QueueData> Execute(BackgroundQueueChannel channelData)
         {
             //TODO: 
-            var queueData = _rabbitMqModel.BasicGet(IQueueHelper.GetChannelNameForConsumer(channelData), true);
+            var queueData = await _queueConnection.GetSingleData(IQueueHelper.GetChannelNameForConsumer(channelData));
             if (queueData is null)
                 return null;
 
             IQueueSerializer serializer = new IQueueSerializer();
-            var data = serializer.UnMergeData(queueData.Body);
+            var data = serializer.UnMergeData(queueData.Value);
             data.ChannelName = channelData.ChannelName;
 
             return data;
@@ -39,7 +40,7 @@ namespace iConsumer.Consumers
 
         public void Dispose()
         {
-            _rabbitMqModel.Dispose();
+            _queueConnection.Dispose();
         }
     }
 }

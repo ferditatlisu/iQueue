@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using iUtility.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using iUtility.Middleware;
+using iQueue.RabbitMQ;
+
 namespace iQueue
 {
     public class Startup
@@ -27,7 +24,7 @@ namespace iQueue
         {
             services.AddHttpClient();
             services.AddControllers();
-            services.AddTransientRabbitMq();
+            services.AddSingletonRabbitMq();
             services.AddTransientRedis();
             services.AddLogging();
         }

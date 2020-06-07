@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\iHealthCheck\iHealthCheck.csproj" />
+    <ProjectReference Include="..\..\iQueue.RabbitMQ\iQueue.RabbitMQ.csproj" />
     <ProjectReference Include="..\iModel\iModel.csproj" />
     <ProjectReference Include="..\iUtility\iUtility.csproj" />
   </ItemGroup>

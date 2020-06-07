@@ -2429,6 +2429,21 @@
           "bin/placeholder/iModel.dll": {}
         }
       },
+      "iQueue.RabbitMQ/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.4",
+          "iModel": "1.0.0",
+          "iUtility": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/iQueue.RabbitMQ.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/iQueue.RabbitMQ.dll": {}
+        }
+      },
       "iUtility/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -7668,6 +7683,11 @@
       "path": "../iModel/iModel.csproj",
       "msbuildProject": "../iModel/iModel.csproj"
     },
+    "iQueue.RabbitMQ/1.0.0": {
+      "type": "project",
+      "path": "../../iQueue.RabbitMQ/iQueue.RabbitMQ.csproj",
+      "msbuildProject": "../../iQueue.RabbitMQ/iQueue.RabbitMQ.csproj"
+    },
     "iUtility/1.0.0": {
       "type": "project",
       "path": "../iUtility/iUtility.csproj",
@@ -7680,6 +7700,7 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.2",
       "iHealthCheck >= 1.0.0",
       "iModel >= 1.0.0",
+      "iQueue.RabbitMQ >= 1.0.0",
       "iUtility >= 1.0.0"
     ]
   },
@@ -7718,6 +7739,9 @@
           "projectReferences": {
             "C:\\Projects-Github\\iQueue\\iHealthCheck\\iHealthCheck.csproj": {
               "projectPath": "C:\\Projects-Github\\iQueue\\iHealthCheck\\iHealthCheck.csproj"
+            },
+            "C:\\Projects-Github\\iQueue\\iQueue.RabbitMQ\\iQueue.RabbitMQ.csproj": {
+              "projectPath": "C:\\Projects-Github\\iQueue\\iQueue.RabbitMQ\\iQueue.RabbitMQ.csproj"
             },
             "C:\\Projects-Github\\iQueue\\iQueue\\iModel\\iModel.csproj": {
               "projectPath": "C:\\Projects-Github\\iQueue\\iQueue\\iModel\\iModel.csproj"

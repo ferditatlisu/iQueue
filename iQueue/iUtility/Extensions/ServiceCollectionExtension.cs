@@ -10,27 +10,27 @@ namespace iUtility.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        public static void AddTransientRabbitMq(this IServiceCollection services)
-        {
-            services.AddScoped<LazyQueue<IConnection>>(x =>
-               new LazyQueue<IConnection>(() =>
-               {
-                   var factory = new ConnectionFactory { HostName = "rabbitmq", Port = 5672, UserName = "test", Password = "test", RequestedConnectionTimeout = TimeSpan.FromSeconds(10) };
-                   var connection = factory.CreateConnection();
-                   return connection;
-               }));
-        }
+        //public static void AddTransientRabbitMq(this IServiceCollection services)
+        //{
+        //    services.AddScoped<LazyQueue<IConnection>>(x =>
+        //       new LazyQueue<IConnection>(() =>
+        //       {
+        //           var factory = new ConnectionFactory { HostName = "rabbitmq", Port = 5672, UserName = "test", Password = "test", RequestedConnectionTimeout = TimeSpan.FromSeconds(10) };
+        //           var connection = factory.CreateConnection();
+        //           return connection;
+        //       }));
+        //}
 
-        public static void AddSingletonRabbitMq(this IServiceCollection services)
-        {
-            services.AddSingleton<Lazy<IConnection>>(x =>
-                  new Lazy<IConnection>(() =>
-                  {
-                      var factory = new ConnectionFactory { HostName = "rabbitmq", Port = 5672, UserName = "test", Password = "test", RequestedConnectionTimeout = TimeSpan.FromSeconds(10) };
-                      var connection = factory.CreateConnection();
-                      return connection;
-                  }));
-        }
+        //public static void AddSingletonRabbitMq(this IServiceCollection services)
+        //{
+        //    services.AddSingleton<Lazy<IConnection>>(x =>
+        //          new Lazy<IConnection>(() =>
+        //          {
+        //              var factory = new ConnectionFactory { HostName = "rabbitmq", Port = 5672, UserName = "test", Password = "test", RequestedConnectionTimeout = TimeSpan.FromSeconds(10) };
+        //              var connection = factory.CreateConnection();
+        //              return connection;
+        //          }));
+        //}
 
         public static void AddTransientRedis(this IServiceCollection services)
         {

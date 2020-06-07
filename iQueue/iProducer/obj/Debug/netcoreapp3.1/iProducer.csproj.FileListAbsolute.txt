@@ -139,3 +139,5 @@ C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\staticwebasse
 C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\iProducer.dll
 C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\iProducer.pdb
 C:\Projects-Github\iQueue\iQueue\iProducer\obj\Debug\netcoreapp3.1\iProducer.genruntimeconfig.cache
+C:\Projects-Github\iQueue\iQueue\iProducer\bin\Debug\netcoreapp3.1\iQueue.RabbitMQ.dll
+C:\Projects-Github\iQueue\iQueue\iProducer\bin\Debug\netcoreapp3.1\iQueue.RabbitMQ.pdb

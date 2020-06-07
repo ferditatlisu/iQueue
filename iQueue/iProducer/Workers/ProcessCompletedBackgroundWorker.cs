@@ -12,10 +12,10 @@ namespace iProducer.Workers
 {
     public class ProcessCompletedBackgroundWorker : BackgroundService
     {
-        private readonly Lazy<IQueueStorage> _storageService;
+        private readonly Lazy<IStorageService> _storageService;
         private readonly ILogger<ProcessCompletedBackgroundWorker> _logger;
 
-        public ProcessCompletedBackgroundWorker(ILogger<ProcessCompletedBackgroundWorker> logger, Lazy<IQueueStorage> storageService)
+        public ProcessCompletedBackgroundWorker(ILogger<ProcessCompletedBackgroundWorker> logger, Lazy<IStorageService> storageService)
         {
             _storageService = storageService;
             _logger = logger;

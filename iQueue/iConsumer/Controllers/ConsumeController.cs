@@ -26,17 +26,6 @@ namespace iConsumer.Controllers
     [ApiController]
     public class ConsumeController : ControllerBase
     {
-        private readonly LazyQueue<IConnection> _lazyRabbitMq;
-        private readonly Lazy<IDatabase> _lazyRedis;
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ILogger _logger;
 
-        public ConsumeController(LazyQueue<IConnection> lazyRabbitMq, Lazy<IDatabase> lazyRedis, IHttpClientFactory httpClientFactory, ILogger<ConsumeController> logger)
-        {
-            _lazyRabbitMq = lazyRabbitMq;
-            _lazyRedis = lazyRedis;
-            _httpClientFactory = httpClientFactory;
-            _logger = logger;
-        }
     }
 }

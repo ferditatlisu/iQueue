@@ -1,6 +1,7 @@
 ﻿using iModel.Channels;
 using iModel.Queues;
 using iModel.Utilities;
+using iUtility.Services;
 using iUtility.Storages;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
@@ -15,16 +16,16 @@ namespace iConsumer.Consumers
 {
     public class ConsumeProcess
     {
-        private readonly Lazy<IConnection> _lazyRabbitMq;
+        private readonly Lazy<IQueueService> _queueService;
         private readonly Lazy<IDatabase> _lazyRedis;
-        private readonly Lazy<IQueueStorage> _storageService;
+        private readonly Lazy<IStorageService> _storageService;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger _logger;
 
 
-        public ConsumeProcess(Lazy<IConnection> lazyRabbitMq, Lazy<IDatabase> lazyRedis, Lazy<IQueueStorage> storageService, IHttpClientFactory httpClientFactory, ILogger logger)
+        public ConsumeProcess(Lazy<IQueueService> queueService, Lazy<IDatabase> lazyRedis, Lazy<IStorageService> storageService, IHttpClientFactory httpClientFactory, ILogger logger)
         {
-            _lazyRabbitMq = lazyRabbitMq;
+            _queueService = queueService;
             _lazyRedis = lazyRedis;
             _storageService = storageService;
             _httpClientFactory = httpClientFactory;
@@ -37,7 +38,7 @@ namespace iConsumer.Consumers
             if (!isHealthly)
                 return;
 
-            using var consumeGetDataProcess = new ConsumeGetDataProcess(_lazyRabbitMq, _logger);
+            using var consumeGetDataProcess = new ConsumeGetDataProcess(_queueService, _logger);
             //TODO: Circuit Breaker pattern
             List<QueueData> queueDataList = new List<QueueData>();
             for (int i = 0; i < channelData.FetchCount; i++)
@@ -52,7 +53,8 @@ namespace iConsumer.Consumers
             if(queueDataList.Count > 0)
                 await new ConsumeSendDataProcess<QueueData>(channelData.ConsumeUrl, _httpClientFactory, _logger).Execute(queueDataList);
 
-            await _storageService.Value.BulkInsertProducerEnterLog(queueDataList.Select(x=> x.QueueId), MessageStatus.ConsumerEntry);
+            using var storageConnection = _storageService.Value.CreateConnection();
+            await storageConnection.BulkInsertProducerEnterLog(queueDataList.Select(x=> x.QueueId), MessageStatus.ConsumerEntry);
         }
     }
 }

@@ -1,3 +1,4 @@
+using iQueue.RabbitMQ;
 using iQueue.RavenStorage.Extensions;
 using iUtility.Extensions;
 using iUtility.Middleware;

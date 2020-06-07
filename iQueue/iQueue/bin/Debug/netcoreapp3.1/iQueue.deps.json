@@ -28,6 +28,7 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.2",
           "iHealthCheck": "1.0.0",
           "iModel": "1.0.0",
+          "iQueue.RabbitMQ": "1.0.0",
           "iUtility": "1.0.0",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
@@ -2076,6 +2077,19 @@
         },
         "compile": {
           "iModel.dll": {}
+        }
+      },
+      "iQueue.RabbitMQ/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.4",
+          "iModel": "1.0.0",
+          "iUtility": "1.0.0"
+        },
+        "runtime": {
+          "iQueue.RabbitMQ.dll": {}
+        },
+        "compile": {
+          "iQueue.RabbitMQ.dll": {}
         }
       },
       "iUtility/1.0.0": {
@@ -4651,6 +4665,11 @@
       "sha512": ""
     },
     "iModel/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "iQueue.RabbitMQ/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

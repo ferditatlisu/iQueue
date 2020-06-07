@@ -23,3 +23,7 @@ iQueue/iQueue.ByteSerializer/obj/
 iQueue/iQueue.ByteSerializer/bin/
 iQueue/iQueue.RavenStorage/obj/
 iQueue/iQueue.RavenStorage/bin/
+iQueue.RabbitMQ/obj/
+iQueue.Redis/obj/
+iQueue.RabbitMQ/bin/
+iQueue.Redis/bin/

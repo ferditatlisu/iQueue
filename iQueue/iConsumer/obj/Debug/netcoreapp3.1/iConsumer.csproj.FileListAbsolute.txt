@@ -141,3 +141,5 @@ C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\Sparrow.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iQueue.RavenStorage.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iQueue.RavenStorage.pdb
+C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iQueue.RabbitMQ.dll
+C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iQueue.RabbitMQ.pdb

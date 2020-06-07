@@ -1,5 +1,6 @@
 ﻿using iModel.Customs;
 using iProducer.Processes;
+using iUtility.Services;
 using iUtility.Storages;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -13,15 +14,15 @@ namespace iProducer.Workers
 {
     public class ProducerBackgroundWorker : BackgroundService
     {
-        private readonly Lazy<IConnection> _lazyRabbitMq;
+        private readonly Lazy<IQueueService> _lazyQueueService;
         private readonly Lazy<IDatabase> _lazyRedis;
-        private readonly Lazy<IQueueStorage> _storageService;
+        private readonly Lazy<IStorageService> _storageService;
 
         private readonly ILogger<ProducerBackgroundWorker> _logger;
 
-        public ProducerBackgroundWorker(ILogger<ProducerBackgroundWorker> logger, Lazy<IConnection> rabbitMq, Lazy<IDatabase> redis, Lazy<IQueueStorage> storageService)
+        public ProducerBackgroundWorker(ILogger<ProducerBackgroundWorker> logger, Lazy<IQueueService> lazyQueueService, Lazy<IDatabase> redis, Lazy<IStorageService> storageService)
         {
-            _lazyRabbitMq = rabbitMq;
+            _lazyQueueService = lazyQueueService;
             _lazyRedis = redis;
             _storageService = storageService;
             _logger = logger;
@@ -33,7 +34,7 @@ namespace iProducer.Workers
             {
                 try
                 {
-                    new ProducerSaveDataProcess(_lazyRabbitMq, _lazyRedis, _storageService, _logger).Execute();
+                    new ProducerSaveDataProcess(_lazyQueueService, _lazyRedis, _storageService, _logger).Execute();
                     _logger.LogInformation("ProducerWorker running at: {time}", DateTimeOffset.UtcNow);
                     await Task.Delay(5000, stoppingToken);
                 }

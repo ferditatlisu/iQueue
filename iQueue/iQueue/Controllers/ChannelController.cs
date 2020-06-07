@@ -18,7 +18,6 @@ namespace iQueue.Controllers
     [ApiController]
     public class ChannelController : ControllerBase
     {
-
         private readonly LazyQueue<IConnection> _lazyRabbitMq;
         private readonly Lazy<IDatabase> _lazyRedis;
 

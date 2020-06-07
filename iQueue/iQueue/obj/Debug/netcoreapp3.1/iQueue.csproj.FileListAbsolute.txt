@@ -135,3 +135,5 @@ C:\Projects-Github\iQueue\iQueue\iQueue\obj\Debug\netcoreapp3.1\staticwebassets\
 C:\Projects-Github\iQueue\iQueue\iQueue\obj\Debug\netcoreapp3.1\iQueue.dll
 C:\Projects-Github\iQueue\iQueue\iQueue\obj\Debug\netcoreapp3.1\iQueue.pdb
 C:\Projects-Github\iQueue\iQueue\iQueue\obj\Debug\netcoreapp3.1\iQueue.genruntimeconfig.cache
+C:\Projects-Github\iQueue\iQueue\iQueue\bin\Debug\netcoreapp3.1\iQueue.RabbitMQ.dll
+C:\Projects-Github\iQueue\iQueue\iQueue\bin\Debug\netcoreapp3.1\iQueue.RabbitMQ.pdb

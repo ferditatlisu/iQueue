@@ -1,19 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
+using iQueue.RabbitMQ;
 using iQueue.RavenStorage.Extensions;
 using iUtility.Extensions;
 using iUtility.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RabbitMQ.Client;
 
 namespace iProducer
 {
@@ -32,7 +25,6 @@ namespace iProducer
         {
             services.AddHttpClient();
             services.AddControllers();
-            services.AddTransientRabbitMq();
             services.AddSingletonRabbitMq();
             services.AddTransientRedis();
             services.AddSingletonRedis();
