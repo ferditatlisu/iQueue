@@ -36,6 +36,9 @@ namespace iPreConsumer.Controllers
         {
             Counter+= request.Count;
 
+            request.RemoveAt(0);
+            request.RemoveAt(1);
+
             var consumerProxy = new CustomProxy<string>(_httpClientFactory.CreateClient(), _logger, "http://iproducer/api/record/CompletedAsList");
             consumerProxy.BodyParameter(request.Select(x => x.QueueId).ToList());
             consumerProxy.PostAsync();

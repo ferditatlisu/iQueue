@@ -9,6 +9,7 @@ C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iConsumer.run
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iConsumer.runtimeconfig.dev.json
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iConsumer.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iConsumer.pdb
+C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\Lambda2Js.Signed.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Razor.Language.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
@@ -54,6 +55,8 @@ C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\Newtonsoft.Js
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\NuGet.Frameworks.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\Pipelines.Sockets.Unofficial.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\RabbitMQ.Client.dll
+C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\Raven.Client.dll
+C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\Sparrow.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\StackExchange.Redis.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\System.Composition.AttributedModel.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\System.Composition.Convention.dll
@@ -62,6 +65,7 @@ C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\System.Compos
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\System.Composition.TypedParts.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\System.Diagnostics.PerformanceCounter.dll
+C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\cs\Microsoft.CodeAnalysis.resources.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\de\Microsoft.CodeAnalysis.resources.dll
@@ -119,9 +123,13 @@ C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\runtimes\win\
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iModel.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iQueue.ByteSerializer.dll
+C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iQueue.RabbitMQ.dll
+C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iQueue.RavenStorage.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iUtility.dll
+C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iQueue.RabbitMQ.pdb
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iModel.pdb
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iQueue.ByteSerializer.pdb
+C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iQueue.RavenStorage.pdb
 C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iUtility.pdb
 C:\Projects-Github\iQueue\iQueue\iConsumer\obj\Debug\netcoreapp3.1\iConsumer.csprojAssemblyReference.cache
 C:\Projects-Github\iQueue\iQueue\iConsumer\obj\Debug\netcoreapp3.1\iConsumer.csproj.CoreCompileInputs.cache
@@ -135,11 +143,3 @@ C:\Projects-Github\iQueue\iQueue\iConsumer\obj\Debug\netcoreapp3.1\staticwebasse
 C:\Projects-Github\iQueue\iQueue\iConsumer\obj\Debug\netcoreapp3.1\iConsumer.dll
 C:\Projects-Github\iQueue\iQueue\iConsumer\obj\Debug\netcoreapp3.1\iConsumer.pdb
 C:\Projects-Github\iQueue\iQueue\iConsumer\obj\Debug\netcoreapp3.1\iConsumer.genruntimeconfig.cache
-C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\Lambda2Js.Signed.dll
-C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\Raven.Client.dll
-C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\Sparrow.dll
-C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
-C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iQueue.RavenStorage.dll
-C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iQueue.RavenStorage.pdb
-C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iQueue.RabbitMQ.dll
-C:\Projects-Github\iQueue\iQueue\iConsumer\bin\Debug\netcoreapp3.1\iQueue.RabbitMQ.pdb

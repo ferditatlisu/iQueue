@@ -24,6 +24,7 @@ namespace iProducer.Processes
         private readonly Lazy<IQueueService> _lazyQueueService;
         private readonly Lazy<IDatabase> _lazyRedis;
         private readonly Lazy<IStorageService> _lazyStorageService;
+
         static ProducerSaveDataProcess()
         {
             QueueDatas = new List<QueueData>();
@@ -59,10 +60,11 @@ namespace iProducer.Processes
                 if(channelExist)
                 {
                     var channelData = await cacheChannelHelper.Get(itemByChannel.Key);
+
                     using var queueConnection = _lazyQueueService.Value.CreateConnection();
                     await queueConnection.BulkInsertData(QueueDatas, channelData);
-                    using var storageConnection = _lazyStorageService.Value.CreateConnection();
 
+                    using var storageConnection = _lazyStorageService.Value.CreateConnection();
                     await storageConnection.BulkInsertData(QueueDatas);
                     await storageConnection.BulkInsertProducerEnterLog(QueueDatas.Select(x => x.QueueId), MessageStatus.ProcuderEntry);
                 }

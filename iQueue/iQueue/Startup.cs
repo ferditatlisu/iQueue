@@ -24,7 +24,7 @@ namespace iQueue
         {
             services.AddHttpClient();
             services.AddControllers();
-            services.AddSingletonRabbitMq();
+            services.AddTransientRabbitMq();
             services.AddTransientRedis();
             services.AddLogging();
         }

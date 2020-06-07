@@ -18,5 +18,8 @@ namespace iUtility.Storages
         Task AddLog(QueueData queueData, MessageStatus status);
         Task BulkInsertData(IEnumerable<QueueData> messages);
         Task BulkInsertProducerEnterLog(IEnumerable<string> ids, MessageStatus messageStatus);
+        Task<List<string>> GetVoidMessages();
+        Task<QueueData> GetMessage(string queueId);
+        Task<List<QueueData>> GetMessages(List<string> queueIds);
     }
 }

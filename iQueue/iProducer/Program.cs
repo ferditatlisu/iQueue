@@ -28,6 +28,7 @@ namespace iProducer
                 {
                     services.AddHostedService<ProducerBackgroundWorker>();
                     services.AddHostedService<ProcessCompletedBackgroundWorker>();
+                    services.AddHostedService<CheckVoidMessageBackgroundWorker>();
                 })
                 .ConfigureLogging(logging =>
                 {
